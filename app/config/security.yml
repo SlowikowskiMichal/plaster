@@ -7,9 +7,15 @@ security:
         in_memory:
             memory:
               users:
-                    ryan:
-                        password: ryanpass
-                        roles: 'ROLE_USER'
+                    lekarz:
+                        password: lek
+                        roles: 'ROLE_LEKARZ'
+                    aptekarz:
+                        password: apt
+                        roles: 'ROLE_APTEKARZ'
+                    pacjent:
+                        password: pcj
+                        roles: 'ROLE_PACJENT'
                     admin:
                         password: kitten
                         roles: 'ROLE_ADMIN'
@@ -28,7 +34,9 @@ security:
     access_control:
         # require ROLE_ADMIN for /admin*
         - { path: ^/admin, roles: ROLE_ADMIN }
-
+        - { path: ^/lekarz, roles: ROLE_ADMIN, ROLE_LEKARZ}
+        - { path: ^/aptekarz, roles: ROLE_ADMIN, ROLE_APTEKARZ}
+        - { path: ^/pacjent, roles: ROLE_ADMIN, ROLE_PACJENT}
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             #http_basic: ~
 
