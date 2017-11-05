@@ -1,68 +1,31 @@
 <!DOCTYPE html>
 <html>
+
+{%  block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/topNav.css') }}">
+{% endblock %}
+
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}Plaster{% endblock %}</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/head.ico') }}" />
 </head>
-<body>
 {% block body %}
     <body>
+    <div class="topnav">
+        <ul>
+            {% for option in options %}
+                {% if  app.request.getpathinfo == '/' ~ level ~ '/' ~ option | lower %}
+                    <li><a class="active"  href={{ option | lower }}>{{ option }}</a></li>
+                {% else %}
+                    <li><a href={{ option | lower }}>{{ option }}</a></li>
+                {% endif %}
+
+            {% endfor %}
+            <li><img src ={{ asset('images/Plaster.png') }} alt="Logo" width="150" height="50"/></li>
+        </ul>
+    </div>
     </body>
 {% endblock %}
 {% block javascripts %}{% endblock %}
-</body>
 </html>
-{% block stylesheets %}
-    <style>
-        body {margin:0;}
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            height: 50px;
-            overflow: hidden;
-            border-bottom: 3px solid #7af5a3;
-            background-color: #333;
-        }
-        li {
-            float: left;
-        }
-
-        li img {
-            position: absolute;
-            right: 5px;
-            border-radius: 8px;
-        }
-
-        li a {
-            display: block;
-            text-align: center;
-            cursor: pointer;
-            padding-left: 15px;
-            padding-right: 15px;
-            padding-top: 20px;
-            padding-bottom: 5px;
-            border-bottom-left-radius: 0px;
-            border-bottom-right-radius: 0px;
-            border-top-left-radius: 32px;
-            border-top-right-radius: 32px;
-            -webkit-transform: perspective(5px) rotateX(1deg);
-            box-shadow: 0px -2px 2px rgba(0,0,0,0);
-            font-size: 20px;
-            font-family: Arial;
-        }
-
-        li a:hover {
-            background-color: #77b7f3;
-            color: black;
-        }
-
-        li a.active {
-            background-color: #7af5a3;
-            color: black;
-            font-weight: bold;
-        }
-
-    </style>
-{% endblock %}
