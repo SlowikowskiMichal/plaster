@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{%  block stylesheets %}
+    {{  parent() }}
+{% endblock %}
+
+{% block body %}
+    {{  parent() }}
+
+    <div class="container">
+        <h1>Strona w budowie</h1>
+        <img src ={{ asset('images/build.png') }} alt="budowa"/>
+
+    </div>
+
+    <style>
+        .container {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            max-width: 500px;
+            margin: auto;
+            top: 30px;
+            position: relative;
+            padding: 50px 20px;
+            border: transparent;
+        }
+    </style>
+
+{% endblock %}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Plaster{% endblock %}</title>
@@ -66,3 +67,34 @@
 
 </style>
 {% endblock %}
+=======
+
+{%  block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/topNav.css') }}">
+{% endblock %}
+
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Plaster{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/head.ico') }}" />
+</head>
+{% block body %}
+    <body>
+    <div class="topnav">
+        <ul>
+            {% for option in options %}
+                {% if  app.request.getpathinfo == '/' ~ level ~ '/' ~ option | lower %}
+                    <li><a class="active"  href={{ option | lower }}>{{ option }}</a></li>
+                {% else %}
+                    <li><a href={{ option | lower }}>{{ option }}</a></li>
+                {% endif %}
+
+            {% endfor %}
+            <li><img src ={{ asset('images/Plaster.png') }} alt="Logo" width="150" height="50"/></li>
+        </ul>
+    </div>
+    </body>
+{% endblock %}
+{% block javascripts %}{% endblock %}
+</html>
+>>>>>>> test/master
