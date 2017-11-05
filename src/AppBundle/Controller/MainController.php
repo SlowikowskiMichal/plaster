@@ -10,18 +10,46 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends Controller
 {
     /**
-     * @Route("/main")
+     * @Route("/main/zaloguj")
      */
     public function showAction()
     {
-        $templating = $this->container->get('templating');
-        $html = $templating->render('main/show.html.twig');
+        $level = 'main';
 
-        return new Response($html);
+        $options = [
+            'Zaloguj',
+            'About'
+        ];
+
+        return $this->render('main/login.html.twig', array(
+            'options' => $options,
+            'level' => $level
+        ));
+    }
+
+    /**
+     * @Route("/main/about")
+     */
+    public function showAbout()
+    {
+        $level = 'main';
+        $options = [
+            'Zaloguj',
+            'About'
+        ];
+
+        return $this->render('main/about.html.twig', array(
+            'options' => $options,
+            'level' => $level
+        ));
+    }
+
+    public function login()
+    {
+
     }
 }
