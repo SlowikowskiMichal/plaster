@@ -27,7 +27,67 @@ class AptekarzController extends Controller
             'Leki'
         ];
 
-        return $this->render('logged/home.html.twig', array(
+        return $this->render('logged/aptekarz/home.html.twig', array(
+            'options' => $options,
+            'level' => $level
+        ));
+    }
+
+    /**
+     * @Route("/aptekarz/leki")
+     */
+    public function showLeki()
+    {
+        $level = 'aptekarz';
+
+        $options = [
+            'Home',
+            'Recepty',
+            'Magazyn',
+            'Leki'
+        ];
+
+        return $this->render('logged/aptekarz/leki.html.twig', array(
+            'options' => $options,
+            'level' => $level
+        ));
+    }
+
+    /**
+     * @Route("/aptekarz/magazyn")
+     */
+    public function showMagazyn()
+    {
+        $level = 'aptekarz';
+
+        $options = [
+            'Home',
+            'Recepty',
+            'Magazyn',
+            'Leki'
+        ];
+
+        return $this->render('logged/aptekarz/magazyn.html.twig', array(
+            'options' => $options,
+            'level' => $level
+        ));
+    }
+
+    /**
+     * @Route("/aptekarz/recepty")
+     */
+    public function showRecepty()
+    {
+        $level = 'aptekarz';
+
+        $options = [
+            'Home',
+            'Recepty',
+            'Magazyn',
+            'Leki'
+        ];
+
+        return $this->render('logged/aptekarz/recepty.html.twig', array(
             'options' => $options,
             'level' => $level
         ));
