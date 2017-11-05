@@ -28,7 +28,91 @@ class LekarzController extends Controller
             'Leki'
         ];
 
-        return $this->render('logged/home.html.twig', array(
+        return $this->render('logged/lekarz/home.html.twig', array(
+            'options' => $options,
+            'level' => $level
+        ));
+    }
+
+    /**
+     * @Route("/lekarz/apteki")
+     */
+    public function showApteki()
+    {
+        $level = 'lekarz';
+
+        $options = [
+            'Home',
+            'Pacjenci',
+            'Wizyty',
+            'Apteki',
+            'Leki'
+        ];
+
+        return $this->render('logged/lekarz/apteki.html.twig', array(
+            'options' => $options,
+            'level' => $level
+        ));
+    }
+
+    /**
+     * @Route("/lekarz/leki")
+     */
+    public function showLeki()
+    {
+        $level = 'lekarz';
+
+        $options = [
+            'Home',
+            'Pacjenci',
+            'Wizyty',
+            'Apteki',
+            'Leki'
+        ];
+
+        return $this->render('logged/lekarz/leki.html.twig', array(
+            'options' => $options,
+            'level' => $level
+        ));
+    }
+
+    /**
+     * @Route("/lekarz/pacjenci")
+     */
+    public function showPacjenci()
+    {
+        $level = 'lekarz';
+
+        $options = [
+            'Home',
+            'Pacjenci',
+            'Wizyty',
+            'Apteki',
+            'Leki'
+        ];
+
+        return $this->render('logged/lekarz/pacjenci.html.twig', array(
+            'options' => $options,
+            'level' => $level
+        ));
+    }
+
+    /**
+     * @Route("/lekarz/wizyty")
+     */
+    public function showWizyty()
+    {
+        $level = 'lekarz';
+
+        $options = [
+            'Home',
+            'Pacjenci',
+            'Wizyty',
+            'Apteki',
+            'Leki'
+        ];
+
+        return $this->render('logged/lekarz/wizyty.html.twig', array(
             'options' => $options,
             'level' => $level
         ));
