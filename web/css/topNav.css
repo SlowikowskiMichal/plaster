@@ -6,7 +6,7 @@ ul {
     height: 50px;
     overflow: hidden;
     border-bottom: 3px solid #7af5a3;
-    background-color: #333;
+    background-color: #454545;
 }
 li {
     float: left;
@@ -40,7 +40,7 @@ li a {
 }
 
 li a:hover {
-    background-color: #77b7f3;
+    background-color: #088088;
     color: black;
 }
 
