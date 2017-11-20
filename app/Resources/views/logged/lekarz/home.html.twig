@@ -6,9 +6,9 @@
 
 {% block body %}
     {{  parent() }}
-
-    <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;height=200&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=b9fvu0fljlstun5suq0eh1s2v4%40group.calendar.google.com&amp;color=%238D6F47&amp;ctz=Europe%2FWarsaw" style="border-width:0" width="300" height="200" frameborder="0" scrolling="no"></iframe>
-
+<div style = "width: 300px;height: auto;margin:0px auto;float:left">
+    <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;height=200&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=b9fvu0fljlstun5suq0eh1s2v4%40group.calendar.google.com&amp;color=%238D6F47&amp;ctz=Europe%2FWarsaw" style="border-width:0" width="300" height="400" frameborder="0" scrolling="no"></iframe>
+</div>
     <div class="container">
         <h1>Strona w budowie</h1>
         <img src ={{ asset('images/build.png') }} alt="budowa"/>

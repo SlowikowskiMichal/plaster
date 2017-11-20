@@ -9,7 +9,45 @@
 
     <div class="container">
         <h1>Strona w budowie</h1>
-        <img src ={{ asset('images/build.png') }} alt="budowa"/>
+        <table id="leki">
+
+            <tr class="header">
+
+                <td>Nazwa</td>
+                <td>Cena</td>
+                <td>Stan</td>
+                <td>Dostawa</td>
+
+            </tr>
+            <tr class =emp>
+                <td>Apap</td>
+                <td>2.50</td>
+                <td>dostepny</td>
+                <td>--</td>
+            </tr>
+
+            <tr class =emp>
+                <td>Ketanol</td>
+                <td>3.50</td>
+                <td>Ostatki</td>
+                <td>30.11.2017</td>
+            </tr>
+
+            <tr class =emp>
+                <td>Magnez B6</td>
+                <td>10</td>
+                <td>brak</td>
+                <td>22.11.2017</td>
+            </tr>
+
+            <tr class =emp>
+                <td>Apsik</td>
+                <td>15</td>
+                <td>Dostepny</td>
+                <td>--</td>
+            </tr>
+
+        </table>
 
     </div>
 
@@ -25,6 +63,26 @@
             padding: 50px 20px;
             border: transparent;
         }
+        table#leki{
+            border-collapse: collapse;
+            width: 200px;
+        }
+        #leki td{
+            border-width: 1px;
+            border-style: solid;
+            border-color: #000000;
+            padding:5px;
+        }
+        #leki .header{
+            background-color: #dbe5f1;
+            font-weight: bold;
+        }
+
+        #leki .emp{
+            background-color: #f3f3f3;
+        }
+
+
     </style>
 
 {% endblock %}
