@@ -4,14 +4,38 @@
     {{  parent() }}
 {% endblock %}
 
+
+
 {% block body %}
     {{  parent() }}
 
     <div class="container">
         <h1>Strona w budowie</h1>
-        <img src ={{ asset('images/build.png') }} alt="budowa"/>
+
+
+
+<form action="?">
+
+    <selcet>
+        <option> pacjent numer jeden</option>
+        <option> pacjent numer dwa</option>
+        <option> pacjent </option>
+
+    </selcet>
+
+
+</form>
+
+        <button type="button">
+            Wybierz
+        </button>
+
+
 
     </div>
+
+
+
 
     <style>
         .container {
