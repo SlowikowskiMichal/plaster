@@ -6,12 +6,13 @@
 
 {% block body %}
     {{  parent() }}
-    <div id="404kal">trwa inicjalizacja, prosze czekac...</div><script type="text/javascript" src="http://404bajery.pl/kalendarz/kal.php?tlo=CCFFFF&czcionka=000000&nag=33FFFF&dni=99FFFF&dzis=33FFFF&szer=160"></script>
 
     <div class="container">
-        <h1>Strona w budowie</h1>
-        <img src ={{ asset('images/build.png') }} alt="budowa"/>
-
+        <h1>Witaj, Adam Aptekarz!</h1>
+        <h3>Ostatnie powiadomienia:</h3>
+        <ul>
+            <li>Brak nowych powiadomień</li>
+        </ul>
     </div>
 
     <style>
@@ -25,6 +26,17 @@
             position: relative;
             padding: 50px 20px;
             border: transparent;
+        }
+
+        .container ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            height: 50px;
+            overflow: hidden;
+        }
+        .container li {
+            float: left;
         }
     </style>
 

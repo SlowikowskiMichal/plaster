@@ -9,34 +9,13 @@
 {% block body %}
     {{  parent() }}
 
+    <form id="frm">
     <div class="container">
-        <h1>Strona w budowie</h1>
-
-
-
-<form action="?">
-
-    <selcet>
-        <option> pacjent numer jeden</option>
-        <option> pacjent numer dwa</option>
-        <option> pacjent </option>
-
-    </selcet>
-
-
-</form>
-
-        <button type="button">
-            Wybierz
-        </button>
-
-
-
+        <h1>Wyszukaj pacjenta</h1>
+        <input id="srh" type="text" placeholder="Login" name="uname" required>
+    <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
     </div>
-
-
-
-
+    </form>
     <style>
         .container {
             font-family: Arial, sans-serif;
@@ -50,5 +29,9 @@
             border: transparent;
         }
     </style>
-
+    <script>
+        function myFunction() {
+            document.getElementById("frm1").submit();
+        }
+    </script>
 {% endblock %}

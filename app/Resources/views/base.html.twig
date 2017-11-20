@@ -12,7 +12,7 @@
 </head>
 {% block body %}
     <body>
-    <div class="topnav">
+    <div class="topNav">
         <ul>
             {% for option in options %}
                 {% if  app.request.getpathinfo == '/' ~ level ~ '/' ~ option | lower %}
