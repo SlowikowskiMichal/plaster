@@ -7,85 +7,40 @@
 {% block body %}
     {{  parent() }}
 
-    <div class="container">
-        <h1>Strona w budowie</h1>
-        <img src ={{ asset('images/build.png') }} alt="budowa"/>
-
-
-
-    </div>
-
-    <div class="container">
-
-        <table id="apteki">
-
-            <tr class="header">
-
-                <td>Nazwa</td>
-                <td>Adres</td>
-                <td>Godiny otwarcia</td>
-
-
-            </tr>
-            <tr class =emp>
-                <td>Stokrotka</td>
-                <td>Kraków, ul Szczęsna 5</td>
-                <td>9-20</td>
-
-            </tr>
-
-            <tr class =emp>
-                <td>Stokrotka</td>
-                <td>Kraków, ul Szczęsna 5</td>
-                <td>9-20</td>
-            </tr>
-
-            <tr class =emp>
-                <td>Stokrotka</td>
-                <td>Kraków, ul Szczęsna 5</td>
-                <td>9-20</td>
-            </tr>
-
-            <tr class =emp>
-                <td>Stokrotka</td>
-                <td>Kraków, ul Szczęsna 5</td>
-                <td>9-20</td>
-            </tr>
-
-        </table>
-
-    </div>
-
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
     <style>
-        .container {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-            max-width: 500px;
-            margin: auto;
-            top: 30px;
-            position: relative;
-            padding: 50px 20px;
-            border: transparent;
+        #map {
+            height: 100%;
         }
-        table#apteki{
-            border-collapse: collapse;
-            width: 500px;
-        }
-        #apteki td{
-            border-width: 1px;
-            border-style: solid;
-            border-color: #000000;
-            padding:5px;
-        }
-        #apteki .header{
-            background-color: #dbe5f1;
-            font-weight: bold;
-        }
-
-        #apteki .emp{
-            background-color: #f3f3f3;
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
     </style>
+
+    <div id="map"></div>
+            <script>
+        var map;
+        function initMap() {
+            var myLatLng = {lat: 50.0671799, lng: 19.916955};
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 50.0646501, lng: 19.9449799},
+                zoom: 14
+            });
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Apteka1'
+            });
+
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9sKrb6YfggPSDIhJSC1GK9x1zo2FUqiM&callback=initMap"
+            async defer></script>
 
 {% endblock %}

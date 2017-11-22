@@ -14,11 +14,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class MainController extends Controller
 {
     /**
-     * @Route("/main/zaloguj")
+     * @Route("/zaloguj")
      */
     public function showAction()
     {
-        $level = 'main';
+        $level = '';
 
         $options = [
             'Zaloguj',
@@ -32,11 +32,11 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/main/about")
+     * @Route("/about")
      */
     public function showAbout()
     {
-        $level = 'main';
+        $level = '';
         $options = [
             'Zaloguj',
             'About'

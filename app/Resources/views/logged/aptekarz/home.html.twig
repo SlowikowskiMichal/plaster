@@ -8,9 +8,11 @@
     {{  parent() }}
 
     <div class="container">
-        <h1>Strona w budowie</h1>
-        <img src ={{ asset('images/build.png') }} alt="budowa"/>
-
+        <h1>Witaj, Adam Aptekarz!</h1>
+        <h3>Ostatnie powiadomienia:</h3>
+        <ul>
+            <li>Brak nowych powiadomień</li>
+        </ul>
     </div>
 
     <style>
@@ -24,6 +26,17 @@
             position: relative;
             padding: 50px 20px;
             border: transparent;
+        }
+
+        .container ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            height: 50px;
+            overflow: hidden;
+        }
+        .container li {
+            float: left;
         }
     </style>
 
