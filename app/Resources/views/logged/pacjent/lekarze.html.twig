@@ -7,12 +7,13 @@
 {% block body %}
     {{  parent() }}
 
-    <div class="container">
-        <h1>Strona w budowie</h1>
-        <img src ={{ asset('images/build.png') }} alt="budowa"/>
-
-    </div>
-
+    <form id="frm">
+        <div class="container">
+            <h1>Wyszukaj pacjenta</h1>
+            <input id="srh" type="text" placeholder="Imię Nazwisko" name="uname" required>
+            <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
+        </div>
+    </form>
     <style>
         .container {
             font-family: Arial, sans-serif;
@@ -26,5 +27,9 @@
             border: transparent;
         }
     </style>
-
+    <script>
+        function myFunction() {
+            document.getElementById("frm1").submit();
+        }
+    </script>
 {% endblock %}
