@@ -9,12 +9,30 @@
     {{  parent() }}
     <div class="container">
         <label><b>Login</b></label>
-        <input type="text" placeholder="Login" name="uname" required>
+        <input id="log" type="text" placeholder="Login" name="uname" required>
 
         <label><b>Hasło</b></label>
-        <input type="password" placeholder="Hasło" name="psw" required>
+        <input id="pas" onclick='document.getElementById("lab").innerHTML = null' type="password" placeholder="Hasło" name="psw" required>
 
-        <a href="lekarz/home"><button type="submit">Zaloguj</button></a>
+        <button type="submit" onclick='login();'>Zaloguj</button>
+        <font id="lab"></font>
     </div>
+
+    <script type="text/javascript">
+        var log;
+        var pas;
+        var link;
+        function login() {
+            log = document.getElementById('log').value;
+            pas = document.getElementById('pas').value;
+            if(pas=="home" && (log!="lekarz" || log!="aptekarz" || log!="pacjent")) {
+                link = log + "/" + pas;
+                location.href = link;
+            } else{
+                document.getElementById("pas").value = null;
+                document.getElementById("lab").innerHTML = "Złe dane logowania!";
+            }
+        }
+    </script>
 
 {% endblock %}
