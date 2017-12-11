@@ -8,11 +8,11 @@
     {{  parent() }}
 
     <div class="container">
-        <h1>Strona w budowie</h1>
-        <img src ={{ asset('images/build.png') }} alt="budowa"/>
-
+        <h1>Wyszukaj lek</h1>
+        <input id="sInput" type="text" placeholder="Nazwa" name="uname">
+        <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
+        <pre><label id="p"></label></pre>
     </div>
-
     <style>
         .container {
             font-family: Arial, sans-serif;
@@ -26,5 +26,22 @@
             border: transparent;
         }
     </style>
+    <script>
+        var sInput
+        function myFunction() {
+            sInput = document.getElementById('sInput').value;
+            if(sInput == "Apsik") {
+                document.getElementById("p").innerHTML = "Znaleziono Lek!\n" +
+                    "Nazwa: Apsik\n" +
+                    "Cena: 2.50\n" +
+                    "Stan: Dostępny\n" +
+                    "Ilość: 99";
+            } else if(sInput == ""){
+                document.getElementById("p").innerHTML = "Wprowadź nazwę leku!"
+            } else{
+                document.getElementById("p").innerHTML = "Nie ma takiego leku";
+            }
+        }
+    </script>
 
 {% endblock %}
