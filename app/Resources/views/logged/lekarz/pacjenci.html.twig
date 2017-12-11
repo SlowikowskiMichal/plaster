@@ -8,14 +8,12 @@
 
 {% block body %}
     {{  parent() }}
-
-    <form id="frm">
     <div class="container">
         <h1>Wyszukaj pacjenta</h1>
-        <input id="srh" type="text" placeholder="Imię Nazwisko" name="uname" required>
+        <input id="sInput" type="text" placeholder="Imię Nazwisko" name="uname">
     <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
+        <pre><label id="p"></label></pre>
     </div>
-    </form>
     <style>
         .container {
             font-family: Arial, sans-serif;
@@ -30,8 +28,19 @@
         }
     </style>
     <script>
+        var sInput;
         function myFunction() {
-            document.getElementById("frm1").submit();
+            sInput = document.getElementById('sInput').value;
+            if(sInput == "Marcin" || sInput == "Pacjent" || sInput == "Marcin Pacjent") {
+                document.getElementById("p").innerHTML = "Znaleziono pacjenta!\n" +
+                    "Imię: Marcin\n" +
+                    "Nazwisko: Pacjent\n" +
+                    "Lekarz: Adam Lekarz\n";
+            } else if(sInput == ""){
+                document.getElementById("p").innerHTML = "Wprowadź imię lub nazwisko pacjenta!"
+            } else{
+                document.getElementById("p").innerHTML = "Nie ma takiego pacjenta";
+            }
         }
     </script>
 {% endblock %}

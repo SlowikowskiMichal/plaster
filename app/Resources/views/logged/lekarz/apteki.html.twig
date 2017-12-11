@@ -22,7 +22,7 @@
     </style>
 
     <div id="map"></div>
-            <script>
+    <script>
         var map;
         function initMap() {
             var myLatLng = {lat: 50.0671799, lng: 19.916955};
@@ -31,10 +31,40 @@
                 center: {lat: 50.0646501, lng: 19.9449799},
                 zoom: 14
             });
+            var contentString = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Apteka B5</h1>'+
+                '<div id="bodyContent">'+
+                '<p>' +
+                '<b>Adres:</b> Czarnowiejska 66, 30-059 Kraków' +
+                '</p>'+
+                '<p>' +
+                '<b>Telefon:</b> 1234567890' +
+                '</p>'+
+                '<p><b>Godziny otwarcia:</b><br>' +
+                'Pon 10-18<br>'+
+                'Wt 10-18<br>'+
+                'Śr 10-18<br>'+
+                'Czw 10-18<br>'+
+                'Pt 10-18<br>'+
+                'Sob 10-14'+
+                '</p>'+
+                '</div>'+
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
             var marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
-                title: 'Apteka1'
+                animation: google.maps.Animation.DROP,
+                title: 'Apteka B5'
+            });
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
             });
 
         }
