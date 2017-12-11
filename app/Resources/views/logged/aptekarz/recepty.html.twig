@@ -8,8 +8,8 @@
     {{  parent() }}
 
     <div class="container">
-        <h1>Wyszukaj pacjenta</h1>
-        <input id="sInput" type="text" placeholder="Imię Nazwisko" name="uname">
+        <h1>Wyszukaj receptę</h1>
+        <input id="sInput" type="text" placeholder="Numer" name="uname">
         <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
         <pre><label id="p"></label></pre>
     </div>
@@ -30,13 +30,10 @@
         var sInput
         function myFunction() {
             sInput = document.getElementById('sInput').value;
-            if(sInput == "Marcin" || sInput == "Pacjent" || "Marcin Pacjent") {
-                document.getElementById("p").innerHTML = "Znaleziono pacjenta!\n" +
-                    "Imię: Marcin\n" +
-                    "Nazwisko: Pacjent\n" +
-                    "Recepty: Brak\n";
+            if(sInput == "") {
+                document.getElementById("p").innerHTML = "Wpisz numer recepty";
             } else{
-                document.getElementById("p").innerHTML = "Nie ma takiego pacjenta";
+                document.getElementById("p").innerHTML = "Nie ma takiej recepty";
             }
         }
     </script>
