@@ -35,13 +35,13 @@ class AptekarzControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/aptekarz/leki');
+        $crawler = $client->request('GET', '/aptekarz/magazyn');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Wyszukaj magazyn', $crawler->filter('h1')->text());
+        $this->assertContains('Dostępne leki', $crawler->filter('h1')->text());
         $this->assertEquals(
             1,
-            $crawler->filter('input')->count()
+            $crawler->filter('table')->count()
         );
     }
 
@@ -52,7 +52,7 @@ class AptekarzControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/aptekarz/leki');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Lista dostępnych leków', $crawler->filter('h1')->text());
+        $this->assertContains('Wyszukaj lek', $crawler->filter('h1')->text());
         $this->assertEquals(
             1,
             $crawler->filter('input')->count()

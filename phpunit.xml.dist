@@ -13,23 +13,23 @@
     </php>
 
     <testsuites>
-        <!--<testsuite name="All Tests">
+        <testsuite name="All Tests">
             <directory>tests</directory>
         </testsuite>
-
+        <!--
                 <testsuite name="Aptekarz">
                     <file>tests/AppBundle/Controller/AptekarzControllerTest.php</file>
                 </testsuite>
                 <testsuite name="Lekarz">
                     <file>tests/AppBundle/Controller/LekarzControllerTest.php</file>
                 </testsuite>
-                --><testsuite name="Main">
+                <testsuite name="Main">
                     <file>tests/AppBundle/Controller/MainControllerTest.php</file>
-                    </testsuite>
-        <!-- <testsuite name="Pacjent">
-            <file>tests/AppBundle/Controller/PacjentControllerTest.php</file>
-        </testsuite>
-        -->
+                </testsuite>
+                <testsuite name="Pacjent">
+                    <file>tests/AppBundle/Controller/PacjentControllerTest.php</file>
+                </testsuite>
+                -->
     </testsuites>
 
     <filter>

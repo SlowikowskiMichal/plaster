@@ -85,7 +85,7 @@ class PacjentControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/pacjent/recepty');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Lista dostępnych leków', $crawler->filter('h1')->text());
+        $this->assertContains('Twoje recepty', $crawler->filter('h1')->text());
         $this->assertEquals(
             1,
             $crawler->filter('input')->count()
