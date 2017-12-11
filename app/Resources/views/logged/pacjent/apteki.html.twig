@@ -7,24 +7,70 @@
 {% block body %}
     {{  parent() }}
 
-    <div class="container">
-        <h1>Strona w budowie</h1>
-        <img src ={{ asset('images/build.png') }} alt="budowa"/>
-
-    </div>
-
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
     <style>
-        .container {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-            max-width: 500px;
-            margin: auto;
-            top: 30px;
-            position: relative;
-            padding: 50px 20px;
-            border: transparent;
+        #map {
+            height: 100%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
     </style>
+
+    <div id="map"></div>
+    <script>
+        var map;
+        function initMap() {
+            var myLatLng = {lat: 50.0671799, lng: 19.916955};
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 50.0646501, lng: 19.9449799},
+                zoom: 14
+            });
+            var contentString = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Apteka B5</h1>'+
+                '<div id="bodyContent">'+
+                '<p>' +
+                '<b>Adres:</b> Czarnowiejska 66, 30-059 Kraków' +
+                '</p>'+
+                '<p>' +
+                '<b>Telefon:</b> 1234567890' +
+                '</p>'+
+                '<p><b>Godziny otwarcia:</b><br>' +
+                'Pon 10-18<br>'+
+                'Wt 10-18<br>'+
+                'Śr 10-18<br>'+
+                'Czw 10-18<br>'+
+                'Pt 10-18<br>'+
+                'Sob 10-14'+
+                '</p>'+
+                '</div>'+
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: 'Apteka B5'
+            });
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
+
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9sKrb6YfggPSDIhJSC1GK9x1zo2FUqiM&callback=initMap"
+            async defer></script>
 
 {% endblock %}
