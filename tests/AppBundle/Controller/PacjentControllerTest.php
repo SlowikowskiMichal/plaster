@@ -34,10 +34,6 @@ class PacjentControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Recepty, które nie zostały wydane', $crawler->filter('h1')->text());
-        $this->assertEquals(
-            1,
-            $crawler->filter('input')->count()
-        );
     }
 
     public function testWizyty()
@@ -58,34 +54,21 @@ class PacjentControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Twoi lekarze', $crawler->filter('h1')->text());
-        $this->assertContains('Wyszukaj lekarza', $crawler->filter('h1')->text());
+//        $this->assertContains('Wyszukaj lekarza', $crawler->filter('h1')->text());
         $this->assertEquals(
             1,
             $crawler->filter('input')->count()
         );
     }
-    public function testApteki()
-    {
-        $client = static::createClient();
 
-        $crawler = $client->request('GET', '/pacjent/recepty');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Wyszukaj aptekę', $crawler->filter('h1')->text());
-        $this->assertEquals(
-            1,
-            $crawler->filter('input')->count()
-        );
-        $this->assertContains('Pokaż wszystkie apteki', $crawler->filter('h1')->text());
-    }
     public function testLeki()
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/pacjent/recepty');
+        $crawler = $client->request('GET', '/pacjent/leki');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Twoje recepty', $crawler->filter('h1')->text());
+        $this->assertContains('Twoje leki', $crawler->filter('h1')->text());
         $this->assertEquals(
             1,
             $crawler->filter('input')->count()

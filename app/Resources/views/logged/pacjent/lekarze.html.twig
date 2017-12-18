@@ -7,6 +7,13 @@
 {% block body %}
     {{  parent() }}
     <div class="container">
+        <h1>Twoi lekarze</h1>
+        <label>
+            Imię: Adam<br>
+            Nazwisko: Lekarz<br>
+            Dostępność: Pon 10 - 18<br>Wt 10 - 18<br>Śr 10 - 18<br>Czw 10 - 18<br>Pt 10 - 18<br>
+            Telefon: 012 345 678<br>
+        </label>
         <h1>Wyszukaj Lekarza</h1>
         <input id="sInput" type="text" placeholder="Imię Nazwisko" name="uname">
         <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
