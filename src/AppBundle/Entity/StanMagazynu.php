@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * TODO
@@ -26,6 +28,18 @@ class StanMagazynu
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ManyToOne(targetEntity="Apteka")
+     * @JoinColumn(name="apteka_id", referencedColumnName="id", nullable=false)
+     */
+    private $apteka;
+
+    /**
+     * @ManyToOne(targetEntity="Lek")
+     * @JoinColumn(name="lek_id", referencedColumnName="id", nullable=false)
+     */
+    private $lek;
 
     /**
      * @var int
