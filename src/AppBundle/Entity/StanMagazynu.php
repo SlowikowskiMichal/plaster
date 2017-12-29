@@ -61,6 +61,38 @@ class StanMagazynu
     }
 
     /**
+     * @return mixed
+     */
+    public function getApteka()
+    {
+        return $this->apteka;
+    }
+
+    /**
+     * @param mixed $apteka
+     */
+    public function setApteka($apteka)
+    {
+        $this->apteka = $apteka;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLek()
+    {
+        return $this->lek;
+    }
+
+    /**
+     * @param mixed $lek
+     */
+    public function setLek($lek)
+    {
+        $this->lek = $lek;
+    }
+
+    /**
      * Set ilosc
      *
      * @param integer $ilosc
