@@ -7,12 +7,6 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
- * TODO
- * add id_lekarz
- * add id_tydzien
- * /
-
-/**
  * GodzinyPrzyjec
  *
  * @ORM\Table(name="godziny_przyjec")
@@ -64,6 +58,38 @@ class GodzinyPrzyjec
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLekarz()
+    {
+        return $this->lekarz;
+    }
+
+    /**
+     * @param mixed $lekarz
+     */
+    public function setLekarz($lekarz)
+    {
+        $this->lekarz = $lekarz;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTydzien()
+    {
+        return $this->tydzien;
+    }
+
+    /**
+     * @param mixed $tydzien
+     */
+    public function setTydzien($tydzien)
+    {
+        $this->tydzien = $tydzien;
     }
 
     /**
