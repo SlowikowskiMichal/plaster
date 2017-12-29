@@ -11,12 +11,31 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class MainController extends Controller
+class SecurityController extends Controller
 {
     /**
-     * @Route("/zaloguj")
+     * @Route("/", name="default")
      */
-    public function showAction()
+    public function afterLoginAction()
+    {
+        $level = '';
+
+        $options = [
+            'Zaloguj',
+            'About'
+        ];
+
+        return $this->render('base.html.twig', array(
+            'options' => $options,
+            'level' => $level
+        ));
+    }
+
+
+    /**
+     * @Route("/login", name="login")
+     */
+    public function loginAction()
     {
         $level = '';
 
@@ -34,7 +53,7 @@ class MainController extends Controller
     /**
      * @Route("/about")
      */
-    public function showAbout()
+    public function aboutAction()
     {
         $level = '';
         $options = [
@@ -48,8 +67,12 @@ class MainController extends Controller
         ));
     }
 
-    public function login()
+    /**
+     * @Route("/logout")
+     * @throws \RuntimeException
+     */
+    public function logoutAction()
     {
-
+        throw new \RuntimeException('This should never be called directly!');
     }
 }

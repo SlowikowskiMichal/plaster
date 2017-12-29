@@ -1,4 +1,4 @@
-{% extends '/:logged/aptekarz:main.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {%  block stylesheets %}
     {{  parent() }}
@@ -8,8 +8,8 @@
     {{  parent() }}
 
     <div class="container">
-        <h1>Wyszukaj lek</h1>
-        <input id="sInput" type="text" placeholder="Nazwa" name="uname">
+        <h1>Wyszukaj receptę</h1>
+        <input id="sInput" type="text" placeholder="Numer" name="uname">
         <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
         <pre><label id="p"></label></pre>
     </div>
@@ -30,16 +30,10 @@
         var sInput
         function myFunction() {
             sInput = document.getElementById('sInput').value;
-            if(sInput == "Apsik") {
-                document.getElementById("p").innerHTML = "Znaleziono Lek!\n" +
-                    "Nazwa: Apsik\n" +
-                    "Cena: 2.50\n" +
-                    "Stan: Dostępny\n" +
-                    "Ilość: 99";
-            } else if(sInput == ""){
-                document.getElementById("p").innerHTML = "Wprowadź nazwę leku!"
+            if(sInput == "") {
+                document.getElementById("p").innerHTML = "Wpisz numer recepty";
             } else{
-                document.getElementById("p").innerHTML = "Nie ma takiego leku";
+                document.getElementById("p").innerHTML = "Nie ma takiej recepty";
             }
         }
     </script>

@@ -1,38 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {%  block stylesheets %}
-    {{  parent() }}
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 {% endblock %}
 
 {% block body %}
-    {{  parent() }}
-    <div class="container">
+    <form class="container" action=""{{ path('login') }} method="POST">
         <label><b>Login</b></label>
-        <input id="log" type="text" placeholder="Login" name="uname" required>
+        <input for="_username"
+                id="_username"
+                name="_username"
+                type="text"
+                placeholder="Login"
+                required
+                autofocus>
 
         <label><b>Hasło</b></label>
-        <input id="pas" onclick='document.getElementById("lab").innerHTML = null' type="password" placeholder="Hasło" name="psw" required>
+        <input for="_password"
+                id="_password"
+                name="_password"
+                type="password"
+                placeholder="Hasło"
+                required>
 
-        <button type="submit" onclick='login();'>Zaloguj</button>
-        <font id="lab"></font>
-    </div>
+        <button type="submit">Zaloguj</button>
+    </form>
 
-    <script type="text/javascript">
-        var log;
-        var pas;
-        var link;
-        function login() {
-            log = document.getElementById('log').value;
-            pas = document.getElementById('pas').value;
-            if(pas=="home" && (log!="lekarz" || log!="aptekarz" || log!="pacjent")) {
-                link = log + "/" + pas;
-                location.href = link;
-            } else{
-                document.getElementById("pas").value = null;
-                document.getElementById("lab").innerHTML = "Złe dane logowania!";
-            }
-        }
-    </script>
 
 {% endblock %}

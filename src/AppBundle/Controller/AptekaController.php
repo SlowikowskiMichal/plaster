@@ -11,7 +11,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class AptekarzController extends Controller
+class AptekaController extends Controller
 {
     /**
      * @Route("/aptekarz/home")

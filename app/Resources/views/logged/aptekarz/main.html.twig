@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="topNav">
+
+    'Home',
+    'Recepty',
+    'Magazyn',
+    'Leki'
+    <ul>
+        <li><a class="active"  href="/apteka/home">Home</a></li>
+        <li><a href="/apteka/recepty">Recepty</a></li>
+        <li><a href="/apteka/magazyn">Magazyn</a></li>
+        <li><a href="/apteka/leki">Leki</a></li>
+        <li><img src ={{ asset('images/Plaster.png') }} alt="Logo" width="150" height="50"/></li>
+
+        {% if app.user %}
+            <li><a href="{{ logout_path('main') }}">Wyloguj</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}
