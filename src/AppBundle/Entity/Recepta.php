@@ -59,6 +59,38 @@ class Recepta
     }
 
     /**
+     * @return mixed
+     */
+    public function getWizyta()
+    {
+        return $this->wizyta;
+    }
+
+    /**
+     * @param mixed $wizyta
+     */
+    public function setWizyta($wizyta)
+    {
+        $this->wizyta = $wizyta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLek()
+    {
+        return $this->lek;
+    }
+
+    /**
+     * @param mixed $lek
+     */
+    public function setLek($lek)
+    {
+        $this->lek = $lek;
+    }
+
+    /**
      * Set zrealizowana
      *
      * @param boolean $zrealizowana

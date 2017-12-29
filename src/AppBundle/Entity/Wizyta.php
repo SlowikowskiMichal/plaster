@@ -58,6 +58,38 @@ class Wizyta
     }
 
     /**
+     * @return mixed
+     */
+    public function getPacjent()
+    {
+        return $this->pacjent;
+    }
+
+    /**
+     * @param mixed $pacjent
+     */
+    public function setPacjent($pacjent)
+    {
+        $this->pacjent = $pacjent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLekarz()
+    {
+        return $this->lekarz;
+    }
+
+    /**
+     * @param mixed $lekarz
+     */
+    public function setLekarz($lekarz)
+    {
+        $this->lekarz = $lekarz;
+    }
+
+    /**
      * Set date
      *
      * @param \DateTime $date
