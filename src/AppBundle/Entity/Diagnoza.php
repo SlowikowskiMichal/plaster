@@ -31,7 +31,7 @@ class Diagnoza
     private $wizyta;
 
     /**
-     * @OneToMany(targetEntity="Choroba")
+     * @ManyToOne(targetEntity="Choroba")
      * @JoinColumn(name="choroba_id", referencedColumnName="id", nullable=false)
      */
     private $choroba;
