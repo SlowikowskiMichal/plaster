@@ -1,10 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'main/main.html.twig' %}
 
 {%  block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 {% endblock %}
 
 {% block body %}
+    {{  parent() }}
+    <script>
+        document.getElementById("zaloguj").classList.add('active');
+    </script>
+
     <form class="container" action=""{{ path('login') }} method="POST">
         <label><b>Login</b></label>
         <input for="_username"
