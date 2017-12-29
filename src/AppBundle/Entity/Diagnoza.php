@@ -4,12 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\OneToOne;
-
-/**
- * TODO
- * add id_wizyta
- */
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Diagnoza
@@ -29,10 +25,16 @@ class Diagnoza
     private $id;
 
     /**
-     * @OneToOne(targetEntity="User")
-     * @JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     * @ManyToOne(targetEntity="Wizyta")
+     * @JoinColumn(name="wizyta_id", referencedColumnName="id", nullable=false)
      */
-    private $user;
+    private $wizyta;
+
+    /**
+     * @OneToMany(targetEntity="Choroba")
+     * @JoinColumn(name="choroba_id", referencedColumnName="id", nullable=false)
+     */
+    private $choroba;
 
     /**
      * Get id
@@ -47,19 +49,33 @@ class Diagnoza
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getWizyta()
     {
-        return $this->user;
+        return $this->wizyta;
     }
 
     /**
-     * @param mixed $user
+     * @param mixed $wizyta
      */
-    public function setUser($user)
+    public function setWizyta($wizyta)
     {
-        $this->user = $user;
+        $this->wizyta = $wizyta;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getChoroba()
+    {
+        return $this->choroba;
+    }
 
+    /**
+     * @param mixed $choroba
+     */
+    public function setChoroba($choroba)
+    {
+        $this->choroba = $choroba;
+    }
 }
 
