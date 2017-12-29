@@ -2,14 +2,11 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Form\UserType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Serializable;
-use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
-use AppBundle\Entity\UserRole;
 
 /**
  * User

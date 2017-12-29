@@ -5,18 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TODO
- * add id_pacjent
- * add id_lekarz
- */
-
-/**
- * Wizyta
+ * Lek
  *
- * @ORM\Table(name="wizyta")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\WizytaRepository")
+ * @ORM\Table(name="lek")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\LekRepository")
  */
-class Wizyta
+class Lek
 {
     /**
      * @var int
@@ -28,11 +22,11 @@ class Wizyta
     private $id;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
-    private $date;
+    private $name;
 
 
     /**
@@ -46,27 +40,27 @@ class Wizyta
     }
 
     /**
-     * Set date
+     * Set name
      *
-     * @param \DateTime $date
+     * @param string $name
      *
-     * @return Wizyta
+     * @return Lek
      */
-    public function setDate($date)
+    public function setName($name)
     {
-        $this->date = $date;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get date
+     * Get name
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getDate()
+    public function getName()
     {
-        return $this->date;
+        return $this->name;
     }
 }
 

@@ -5,18 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TODO
- * add id_pacjent
- * add id_lekarz
- */
-
-/**
- * Wizyta
+ * Tydzien
  *
- * @ORM\Table(name="wizyta")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\WizytaRepository")
+ * @ORM\Table(name="tydzien")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TydzienRepository")
  */
-class Wizyta
+class Tydzien
 {
     /**
      * @var int
@@ -28,11 +22,11 @@ class Wizyta
     private $id;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="dzien", type="string", length=255)
      */
-    private $date;
+    private $dzien;
 
 
     /**
@@ -46,27 +40,27 @@ class Wizyta
     }
 
     /**
-     * Set date
+     * Set dzien
      *
-     * @param \DateTime $date
+     * @param string $dzien
      *
-     * @return Wizyta
+     * @return Tydzien
      */
-    public function setDate($date)
+    public function setDzien($dzien)
     {
-        $this->date = $date;
+        $this->dzien = $dzien;
 
         return $this;
     }
 
     /**
-     * Get date
+     * Get dzien
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getDate()
+    public function getDzien()
     {
-        return $this->date;
+        return $this->dzien;
     }
 }
 
