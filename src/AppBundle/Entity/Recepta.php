@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * TODO
@@ -25,6 +27,18 @@ class Recepta
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ManyToOne(targetEntity="Wizyta")
+     * @JoinColumn(name="wizyta_id", referencedColumnName="id", nullable=false)
+     */
+    private $wizyta;
+
+    /**
+     * @ManyToOne(targetEntity="Lek")
+     * @JoinColumn(name="lek_id", referencedColumnName="id", nullable=false)
+     */
+    private $lek;
 
     /**
      * @var bool
