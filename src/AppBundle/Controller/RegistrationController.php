@@ -18,11 +18,11 @@ use Symfony\Component\HttpFoundation\Request;
 class RegistrationController extends Controller
 {
     /**
-     * @Route("/register", name="registration")
+     * @Route("/register/user", name="userRegistration")
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \LogicException
      */
-    public function registerAction(Request $request)
+    public function registeUserrAction(Request $request)
     {
         $user = new User();
 

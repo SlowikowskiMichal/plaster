@@ -21,12 +21,14 @@ class SecurityController extends Controller
         $user = $this->getUser();
 
 
-        if(!$user)
-        {
+        if(!$user) {
             $home = 'login';
         }
+        elseif($user->getRoles() == ['ROLE_ADMIN']) {
+            $home = 'userRegistration';
+        }
         else {
-            $home = $user->getRole()->getRole()."Home";
+            $home = $user->getRoles()[0]."Home";
         }
 
         return $this->redirectToRoute($home);
