@@ -7,12 +7,6 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
- * TODO
- * add id_apteka
- * id_lek
- */
-
-/**
  * StanMagazynu
  *
  * @ORM\Table(name="stan_magazynu")
