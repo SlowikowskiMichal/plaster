@@ -28,6 +28,18 @@ class Wizyta
     private $id;
 
     /**
+     * @ManyToOne(targetEntity="Pacjent")
+     * @JoinColumn(name="pacjent_id", referencedColumnName="id", nullable=false)
+     */
+    private $pacjent;
+
+    /**
+     * @ManyToOne(targetEntity="Lekarz")
+     * @JoinColumn(name="lekarz_id", referencedColumnName="id", nullable=false)
+     */
+    private $lekarz;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
