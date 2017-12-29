@@ -26,7 +26,7 @@ class UserRole
      *
      * @ORM\Column(name="role", type="string", length=255, unique=true)
      */
-    private $role;
+    public $role;
 
 
     /**

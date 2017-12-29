@@ -13,14 +13,16 @@ use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class RegistrationController extends Controller
 {
     /**
      * @Route("/register", name="registration")
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \LogicException
      */
-    public function registerAction()
+    public function registerAction(Request $request)
     {
         $user = new User();
 
@@ -28,9 +30,35 @@ class RegistrationController extends Controller
 
         ]);
 
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $password = $this
+                ->get('security.password_encoder')
+                ->encodePassword(
+                    $user,
+                    $user->getPlainPassword()
+                )
+            ;
+
+            $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
+            return $this->redirectToRoute('login');
+        }
+
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
         ]);
     }
+
+    /**
+     *
+     */
 
 }

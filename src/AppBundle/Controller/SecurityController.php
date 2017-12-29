@@ -18,16 +18,8 @@ class SecurityController extends Controller
      */
     public function afterLoginAction()
     {
-        $level = '';
-
-        $options = [
-            'Zaloguj',
-            'About'
-        ];
-
         return $this->render('base.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 
@@ -37,33 +29,26 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
-        $level = '';
-
-        $options = [
-            'Zaloguj',
-            'About'
-        ];
-
         return $this->render('main/login.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 
     /**
-     * @Route("/about")
+     * @Route("/login_check", name="login_check")
+     */
+    public function loginCheckAction()
+    {
+        // this controller will not be executed,
+        // as the route is handled by the Security system
+    }
+
+    /**
+     * @Route("/about", name="about")
      */
     public function aboutAction()
     {
-        $level = '';
-        $options = [
-            'Zaloguj',
-            'About'
-        ];
-
         return $this->render('main/about.html.twig', array(
-            'options' => $options,
-            'level' => $level
         ));
     }
 
@@ -74,5 +59,6 @@ class SecurityController extends Controller
     public function logoutAction()
     {
         throw new \RuntimeException('This should never be called directly!');
+        $this->redirectToRoute('login');
     }
 }
