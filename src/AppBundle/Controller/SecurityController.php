@@ -18,9 +18,18 @@ class SecurityController extends Controller
      */
     public function afterLoginAction()
     {
-        return $this->render('base.html.twig', array(
+        $user = $this->getUser();
 
-        ));
+
+        if(!$user)
+        {
+            $home = 'login';
+        }
+        else {
+            $home = $user->getRole()->getRole()."Home";
+        }
+
+        return $this->redirectToRoute($home);
     }
 
 
@@ -29,9 +38,19 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
-        return $this->render('main/login.html.twig', array(
+        $user = $this->getUser();
 
-        ));
+
+        if(!$user)
+        {
+            return $this->render('main/login.html.twig', array(
+
+            ));
+        }
+        else {
+            $home = $user->getRole()->getRole() . "Home";
+            return $this->redirectToRoute($home);
+        }
     }
 
     /**
@@ -59,6 +78,6 @@ class SecurityController extends Controller
     public function logoutAction()
     {
         throw new \RuntimeException('This should never be called directly!');
-        $this->redirectToRoute('login');
+        return $this->redirectToRoute('login');
     }
 }
