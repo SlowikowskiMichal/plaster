@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * TODO
@@ -26,6 +28,18 @@ class GodzinyPrzyjec
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ManyToOne(targetEntity="Lekarz")
+     * @JoinColumn(name="lekarz_id", referencedColumnName="id", nullable=false)
+     */
+    private $lekarz;
+
+    /**
+     * @ManyToOne(targetEntity="Tydzien")
+     * @JoinColumn(name="tydzien_id", referencedColumnName="id", nullable=false)
+     */
+    private $tydzien;
 
     /**
      * @var \DateTime
