@@ -1,11 +1,12 @@
-{% extends '/:logged/aptekarz:main.html.twig' %}
+{% extends 'logged/aptekarz/main.html.twig' %}
 
-{%  block stylesheets %}
-    {{  parent() }}
-{% endblock %}
 
 {% block body %}
     {{  parent() }}
+
+    <script>
+        document.getElementById("recepty").classList.add('active');
+    </script>
 
     <div class="container">
         <h1>Wyszukaj receptę</h1>

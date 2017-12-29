@@ -14,82 +14,40 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AptekaController extends Controller
 {
     /**
-     * @Route("/aptekarz/home")
+     * @Route("/apteka/home", name="aptekaHome")
      */
     public function showHome()
     {
-        $level = 'aptekarz';
-
-        $options = [
-            'Home',
-            'Recepty',
-            'Magazyn',
-            'Leki'
-        ];
-
         return $this->render('logged/aptekarz/home.html.twig', array(
-            'options' => $options,
-            'level' => $level
         ));
     }
 
     /**
-     * @Route("/aptekarz/leki")
+     * @Route("/apteka/leki", name="aptekaLeki")
      */
     public function showLeki()
     {
-        $level = 'aptekarz';
-
-        $options = [
-            'Home',
-            'Recepty',
-            'Magazyn',
-            'Leki'
-        ];
-
         return $this->render('logged/aptekarz/leki.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 
     /**
-     * @Route("/aptekarz/magazyn")
+     * @Route("/apteka/magazyn", name="aptekaMagazyn")
      */
     public function showMagazyn()
     {
-        $level = 'aptekarz';
-
-        $options = [
-            'Home',
-            'Recepty',
-            'Magazyn',
-            'Leki'
-        ];
-
         return $this->render('logged/aptekarz/magazyn.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 
     /**
-     * @Route("/aptekarz/recepty")
+     * @Route("/apteka/recepty", name="aptekaRecepty")
      */
     public function showRecepty()
     {
-        $level = 'aptekarz';
-
-        $options = [
-            'Home',
-            'Recepty',
-            'Magazyn',
-            'Leki'
-        ];
-
         return $this->render('logged/aptekarz/recepty.html.twig', array(
-            'options' => $options,
-            'level' => $level
         ));
     }
 }

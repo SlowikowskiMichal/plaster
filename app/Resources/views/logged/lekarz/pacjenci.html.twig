@@ -1,13 +1,13 @@
-{% extends 'base.html.twig' %}
-
-{%  block stylesheets %}
-    {{  parent() }}
-{% endblock %}
-
+{% extends 'logged/lekarz/main.html.twig' %}
 
 
 {% block body %}
     {{  parent() }}
+
+    <script>
+        document.getElementById("pacjenci").classList.add('active');
+    </script>
+
     <div class="container">
         <h1>Wyszukaj pacjenta</h1>
         <input id="sInput" type="text" placeholder="Imię Nazwisko" name="uname">

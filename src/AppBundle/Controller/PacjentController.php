@@ -14,163 +14,72 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class PacjentController extends Controller
 {
     /**
-     * @Route("/pacjent/home")
+     * @Route("/pacjent/home", name="pacjentHome")
      */
     public function showHome()
     {
-        $level = 'pacjent';
-
-        $options = [
-            'Home',
-            'Historia',
-            'Recepty',
-            'Wizyty',
-            'Lekarze',
-            'Apteki',
-            'Leki'
-        ];
-
         return $this->render('logged/pacjent/home.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 
     /**
-     * @Route("/pacjent/apteki")
+     * @Route("/pacjent/apteki", name="pacjentApteki")
      */
     public function showApteki()
     {
-        $level = 'pacjent';
-
-        $options = [
-            'Home',
-            'Historia',
-            'Recepty',
-            'Wizyty',
-            'Lekarze',
-            'Apteki',
-            'Leki'
-        ];
-
         return $this->render('logged/pacjent/apteki.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 
     /**
-     * @Route("/pacjent/historia")
+     * @Route("/pacjent/historia", name="pacjentHistoria")
      */
     public function showHistory()
     {
-        $level = 'pacjent';
-
-        $options = [
-            'Home',
-            'Historia',
-            'Recepty',
-            'Wizyty',
-            'Lekarze',
-            'Apteki',
-            'Leki'
-        ];
-
         return $this->render('logged/pacjent/historia.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 
     /**
-     * @Route("/pacjent/lekarze")
+     * @Route("/pacjent/lekarze", name="pacjentLekarze")
      */
     public function showLekarze()
     {
-        $level = 'pacjent';
-
-        $options = [
-            'Home',
-            'Historia',
-            'Recepty',
-            'Wizyty',
-            'Lekarze',
-            'Apteki',
-            'Leki'
-        ];
-
         return $this->render('logged/pacjent/lekarze.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 
     /**
-     * @Route("/pacjent/leki")
+     * @Route("/pacjent/leki", name="pacjentLeki")
      */
     public function showLeki()
     {
-        $level = 'pacjent';
-
-        $options = [
-            'Home',
-            'Historia',
-            'Recepty',
-            'Wizyty',
-            'Lekarze',
-            'Apteki',
-            'Leki'
-        ];
-
         return $this->render('logged/pacjent/leki.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 
     /**
-     * @Route("/pacjent/recepty")
+     * @Route("/pacjent/recepty", name="pacjentRecepty")
      */
     public function showRecepty()
     {
-        $level = 'pacjent';
-
-        $options = [
-            'Home',
-            'Historia',
-            'Recepty',
-            'Wizyty',
-            'Lekarze',
-            'Apteki',
-            'Leki'
-        ];
-
         return $this->render('logged/pacjent/recepty.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 
     /**
-     * @Route("/pacjent/wizyty")
+     * @Route("/pacjent/wizyty", name="pacjentWizyty")
      */
     public function showWizyty()
     {
-        $level = 'pacjent';
-
-        $options = [
-            'Home',
-            'Historia',
-            'Recepty',
-            'Wizyty',
-            'Lekarze',
-            'Apteki',
-            'Leki'
-        ];
-
         return $this->render('logged/pacjent/wizyty.html.twig', array(
-            'options' => $options,
-            'level' => $level
+
         ));
     }
 }

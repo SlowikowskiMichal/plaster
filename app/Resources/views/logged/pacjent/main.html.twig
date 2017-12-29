@@ -1,41 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{%  block stylesheets %}
-    {{  parent() }}
-{% endblock %}
-
 {% block body %}
-    {{  parent() }}
+    <div class="topNav">
+        <ul>
+            <li><a id="home"  href="{{ path('pacjentHome') }}">Home</a></li>
+            <li><a id="historia"  href="{{ path('pacjentHistoria') }}">Historia</a></li>
+            <li><a id="recepty" href="{{ path('pacjentRecepty') }}">Recepty</a></li>
+            <li><a id="wizyty"  href="{{ path('pacjentWizyty') }}">Wizyty</a></li>
+            <li><a id="lekarze" href="{{ path('pacjentLekarze') }}">Lekarze</a></li>
+            <li><a id="apteki"  href="{{ path('pacjentApteki') }}">Apteki</a></li>
+            <li><a id="leki" href="{{ path('pacjentLeki') }}">Leki</a></li>
+            <li><img src ={{ asset('images/Plaster.png') }} alt="Logo" width="150" height="50"/></li>
 
-    <div class="container">
-        <h1>Wyszukaj receptę</h1>
-        <input id="sInput" type="text" placeholder="Numer" name="uname">
-        <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
-        <pre><label id="p"></label></pre>
+            {% if app.user %}
+                <li><a href="{{ logout_path('main') }}">Wyloguj</a></li>
+            {% endif %}
+        </ul>
     </div>
-    <style>
-        .container {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-            max-width: 500px;
-            margin: auto;
-            top: 30px;
-            position: relative;
-            padding: 50px 20px;
-            border: transparent;
-        }
-    </style>
-    <script>
-        var sInput
-        function myFunction() {
-            sInput = document.getElementById('sInput').value;
-            if(sInput == "") {
-                document.getElementById("p").innerHTML = "Wpisz numer recepty";
-            } else{
-                document.getElementById("p").innerHTML = "Nie ma takiej recepty";
-            }
-        }
-    </script>
-
 {% endblock %}

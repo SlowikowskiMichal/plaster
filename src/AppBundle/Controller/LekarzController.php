@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class LekarzController extends Controller
 {
     /**
-     * @Route("/lekarz/home")
+     * @Route("/lekarz/home", name="lekarzHome")
      */
     public function showHome()
     {
@@ -35,7 +35,7 @@ class LekarzController extends Controller
     }
 
     /**
-     * @Route("/lekarz/apteki")
+     * @Route("/lekarz/apteki", name="lekarzApteki")
      */
     public function showApteki()
     {
@@ -56,7 +56,7 @@ class LekarzController extends Controller
     }
 
     /**
-     * @Route("/lekarz/leki")
+     * @Route("/lekarz/leki", name="lekarzLeki")
      */
     public function showLeki()
     {
@@ -77,7 +77,7 @@ class LekarzController extends Controller
     }
 
     /**
-     * @Route("/lekarz/pacjenci")
+     * @Route("/lekarz/pacjenci", name="lekarzPacjenci")
      */
     public function showPacjenci()
     {
@@ -98,7 +98,7 @@ class LekarzController extends Controller
     }
 
     /**
-     * @Route("/lekarz/wizyty")
+     * @Route("/lekarz/wizyty", name="lekarzWizyty")
      */
     public function showWizyty()
     {

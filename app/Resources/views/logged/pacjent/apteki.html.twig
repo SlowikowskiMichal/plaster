@@ -1,11 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'logged/pacjent/main.html.twig' %}
 
-{%  block stylesheets %}
-    {{  parent() }}
-{% endblock %}
 
 {% block body %}
     {{  parent() }}
+
+    <script>
+        document.getElementById("apteki").classList.add('active');
+    </script>
 
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
