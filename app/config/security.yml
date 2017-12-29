@@ -57,8 +57,9 @@ security:
       - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/about, role: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/pacjent$, role: pacjent }
-      - { path: ^/lekarz, role: lekarz }
-      - { path: ^/apteka, role: apteka }
+      - { path: ^/lekarz$, role: lekarz }
+      - { path: ^/apteka$, role: apteka }
+      - { path: ^/register$, role: ROLE_ADMIN}
       - { path: ^/, role: ROLE_USER}
 
 
