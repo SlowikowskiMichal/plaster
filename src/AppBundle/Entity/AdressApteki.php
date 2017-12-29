@@ -3,11 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
-/**
- * TODO
- * add id_apteka
- * /
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\OneToOne;
 
 /**
  * AdressApteki
@@ -25,6 +22,12 @@ class AdressApteki
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @OneToOne(targetEntity="Apteka")
+     * @JoinColumn(name="apteka_id", referencedColumnName="id", nullable=false)
+     */
+    private $adress;
 
     /**
      * @var float
