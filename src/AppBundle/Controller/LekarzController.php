@@ -77,11 +77,11 @@ class LekarzController extends Controller
             $pesel = $form->getData()['pesel'];
 
             if($imie == null)
-                $imie='*';
+                $imie='%';
             if($nazwisko == null)
-                $nazwisko='*';
+                $nazwisko='%';
             if($pesel == null)
-                $pesel='*';
+                $pesel='%';
 
             $pacjentList = $this
                 ->getDoctrine()
@@ -89,9 +89,9 @@ class LekarzController extends Controller
                 ->createQuery(
                     'SELECT p
                     FROM AppBundle:Pacjent p
-                    WHERE p.imie = :imie
-                    AND p.nazwisko = :nazwisko
-                    AND p.pesel = :pesel
+                    WHERE p.imie LIKE :imie
+                    AND p.nazwisko LIKE :nazwisko
+                    AND p.pesel LIKE :pesel
                     ORDER BY p.id ASC')
                 ->setParameter('imie', $imie)
                 ->setParameter('nazwisko', $nazwisko)

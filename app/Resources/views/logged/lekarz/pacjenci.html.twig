@@ -15,12 +15,20 @@
         <h2>Wyszukaj pacjenta</h2>
         {{ form(search_form) }}
     </div>
+
     {% if pacjentList != null %}
         {% for pacjent in pacjentList %}
-            <p>{{ pacjent.getImie }}</p>
+        <div class="container">
+            <p>
+                <center>
+                <h2><b>Pacjent: {{ pacjent.getId }}</b></h2>
+                <b>Imię:</b> {{ pacjent.getImie }}<br>
+                <b>Nazwisko:</b> {{ pacjent.getNazwisko }}<br>
+                <b>Telefon:</b> {{ pacjent.getTelephone }}<br>
+                </center>
+            </p>
+        </div>
         {% endfor %}
-        <p>cycki</p>
-    {% else %}
-        <p>dupa</p>
     {% endif %}
+    </div>
 {% endblock %}
