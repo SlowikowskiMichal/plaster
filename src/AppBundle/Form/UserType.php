@@ -37,7 +37,7 @@ class UserType extends AbstractType
                 'multiple' => false,
                 'expanded' => false
             ))
-            ->add('register',SubmitType::class)
+            ->add('Zarejestruj',SubmitType::class)
         ;
     }
     

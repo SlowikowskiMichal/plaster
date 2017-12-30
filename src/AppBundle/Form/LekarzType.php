@@ -25,7 +25,8 @@ class LekarzType extends AbstractType
                 'choice_label' => 'user',
                 'multiple' => false,
                 'expanded' => false
-            ));
+            ))
+            ->add('Zarejestruj',SubmitType::class);
     }
 
     /**

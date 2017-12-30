@@ -30,7 +30,8 @@ class StanMagazynuType extends AbstractType
                 'choice_label' => 'lek',
                 'multiple' => false,
                 'expanded' => false
-            ));
+            ))
+            ->add('Zarejestruj',SubmitType::class);
     }
 
     /**

@@ -30,7 +30,8 @@ class GodzinyPrzyjecType extends AbstractType
                 'choice_label' => 'user',
                 'multiple' => false,
                 'expanded' => true
-            ));
+            ))
+            ->add('Zarejestruj',SubmitType::class);
     }
 
     /**

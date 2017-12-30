@@ -25,7 +25,8 @@ class AptekaType extends AbstractType
                 'multiple' => false,
                 'expanded' => false
             ))
-            ->add('address',TextType::class);
+            ->add('address',TextType::class)
+            ->add('Zarejestruj',SubmitType::class);
     }
 
     /**

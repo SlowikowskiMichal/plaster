@@ -27,7 +27,8 @@ class AdressAptekiType extends AbstractType
                 'choice_label' => 'apteka',
                 'multiple' => false,
                 'expanded' => false
-            ));
+            ))
+            ->add('Zarejestruj',SubmitType::class);
     }
 
     /**

@@ -16,7 +16,8 @@ class ChorobaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nazwa', TextType::class);
+            ->add('nazwa', TextType::class)
+            ->add('Zarejestruj',SubmitType::class);
     }
 
     /**
