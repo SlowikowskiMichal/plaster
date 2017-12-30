@@ -10,9 +10,21 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\AdressApteki;
+use AppBundle\Entity\Apteka;
+use AppBundle\Entity\Choroba;
+use AppBundle\Entity\GodzinyPrzyjec;
+use AppBundle\Entity\Lek;
+use AppBundle\Entity\Lekarz;
+use AppBundle\Entity\Pacjent;
 use AppBundle\Entity\User;
 use AppBundle\Form\AdressAptekiType;
+use AppBundle\Form\AptekaType;
+use AppBundle\Form\ChorobaType;
+use AppBundle\Form\GodzinyPrzyjecType;
+use AppBundle\Form\LekarzType;
+use AppBundle\Form\LekType;
 use AppBundle\Form\UserType;
+use Doctrine\ORM\Mapping\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,30 +38,10 @@ class RegistrationController extends Controller
      */
     public function registerAddressAptekiAction(Request $request)
     {
-        $active="addressApteki";
-
-        $addressApteki = new AdressApteki();
-
-        $form = $this->createForm(AdressAptekiType::class,$addressApteki, [
-
-        ]);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($addressApteki);
-            $em->flush();
-
-            $this->addFlash('success',"Udało zarejestrować się Adres Apteki");
-//            return $this->redirectToRoute('login');
-        }
-
+        $form = $this->constructForm(new AdressApteki(),AdressAptekiType::class,$request);
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
-            'active' => $active,
+            'active' => "addressApteki",
         ]);
     }
 
@@ -60,39 +52,10 @@ class RegistrationController extends Controller
      */
     public function registerAptekaAction(Request $request)
     {
-        $active="apteka";
-
-        $user = new User();
-
-        $form = $this->createForm(UserType::class,$user, [
-
-        ]);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $password = $this
-                ->get('security.password_encoder')
-                ->encodePassword(
-                    $user,
-                    $user->getPlainPassword()
-                )
-            ;
-
-            $user->setPassword($password);
-
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
-            return $this->redirectToRoute('login');
-        }
-
+        $form = $this->constructForm(new Apteka(),AptekaType::class,$request);
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
-            'active' => $active,
+            'active' => "apteka",
         ]);
     }
 
@@ -103,39 +66,10 @@ class RegistrationController extends Controller
      */
     public function registerChorobaAction(Request $request)
     {
-        $active="choroba";
-
-        $user = new User();
-
-        $form = $this->createForm(UserType::class,$user, [
-
-        ]);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $password = $this
-                ->get('security.password_encoder')
-                ->encodePassword(
-                    $user,
-                    $user->getPlainPassword()
-                )
-            ;
-
-            $user->setPassword($password);
-
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
-            return $this->redirectToRoute('login');
-        }
-
+        $form = $this->constructForm(new Choroba(),ChorobaType::class,$request);
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
-            'active' => $active,
+            'active' => "choroba",
         ]);
     }
 
@@ -146,39 +80,10 @@ class RegistrationController extends Controller
      */
     public function registerGodzinyPrzyjecAction(Request $request)
     {
-        $active="godzinyPrzyjec";
-
-        $user = new User();
-
-        $form = $this->createForm(UserType::class,$user, [
-
-        ]);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $password = $this
-                ->get('security.password_encoder')
-                ->encodePassword(
-                    $user,
-                    $user->getPlainPassword()
-                )
-            ;
-
-            $user->setPassword($password);
-
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
-            return $this->redirectToRoute('login');
-        }
-
+        $form = $this->constructForm(new GodzinyPrzyjec(),GodzinyPrzyjecType::class,$request);
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
-            'active' => $active,
+            'active' => "godzinyPrzyjec",
         ]);
     }
 
@@ -189,39 +94,10 @@ class RegistrationController extends Controller
      */
     public function registerLekAction(Request $request)
     {
-        $active="lek";
-
-        $user = new User();
-
-        $form = $this->createForm(UserType::class,$user, [
-
-        ]);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $password = $this
-                ->get('security.password_encoder')
-                ->encodePassword(
-                    $user,
-                    $user->getPlainPassword()
-                )
-            ;
-
-            $user->setPassword($password);
-
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
-            return $this->redirectToRoute('login');
-        }
-
+        $form = $this->constructForm(new Lek(),LekType::class,$request);
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
-            'active' => $active,
+            'active' => "lek",
         ]);
     }
 
@@ -232,39 +108,10 @@ class RegistrationController extends Controller
      */
     public function registerLekarzAction(Request $request)
     {
-        $active="lekarz";
-
-        $user = new User();
-
-        $form = $this->createForm(UserType::class,$user, [
-
-        ]);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $password = $this
-                ->get('security.password_encoder')
-                ->encodePassword(
-                    $user,
-                    $user->getPlainPassword()
-                )
-            ;
-
-            $user->setPassword($password);
-
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
-            return $this->redirectToRoute('login');
-        }
-
+        $form = $this->constructForm(new Lekarz(),LekarzType::class,$request);
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
-            'active' => $active,
+            'active' => "lekarz",
         ]);
     }
 
@@ -275,39 +122,10 @@ class RegistrationController extends Controller
      */
     public function registerPacjentAction(Request $request)
     {
-        $active="pacjent";
-
-        $user = new User();
-
-        $form = $this->createForm(UserType::class,$user, [
-
-        ]);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $password = $this
-                ->get('security.password_encoder')
-                ->encodePassword(
-                    $user,
-                    $user->getPlainPassword()
-                )
-            ;
-
-            $user->setPassword($password);
-
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
-            return $this->redirectToRoute('login');
-        }
-
+        $form = $this->constructForm(new Pacjent(),Pacjent::class,$request);
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
-            'active' => $active,
+            'active' => "pacjent",
         ]);
     }
 
@@ -359,41 +177,39 @@ class RegistrationController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \LogicException
      */
-    public function registeUserrAction(Request $request)
+    public function registerUserAction(Request $request)
     {
-        $active="user";
+        $form = $this->constructForm(new User(),UserType::class,$request);
+        return $this->render('registration/register.html.twig', [
+            'registration_form' => $form->createView(),
+            'active' => "user",
+        ]);
+    }
 
-        $user = new User();
+    /**
+     * @param $entityToConstruct
+     * @param $formClassType
+     * @param Request $request
+     * @return \Symfony\Component\Form\Form
+     */
+    private function constructForm($entityToConstruct, $formClassType, Request $request){
 
-        $form = $this->createForm(UserType::class,$user, [
+        $form = $this->createForm($formClassType,$entityToConstruct, [
 
         ]);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $password = $this
-                ->get('security.password_encoder')
-                ->encodePassword(
-                    $user,
-                    $user->getPlainPassword()
-                )
-            ;
-
-            $user->setPassword($password);
 
             $em = $this->getDoctrine()->getManager();
 
-            $em->persist($user);
+            $em->persist($entityToConstruct);
             $em->flush();
 
-            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
-            return $this->redirectToRoute('login');
+            $this->addFlash('success',"Udało zarejestrować się Adres Apteki");
+//            return $this->redirectToRoute('login');
         }
-
-        return $this->render('registration/register.html.twig', [
-            'registration_form' => $form->createView(),
-            'active' => $active,
-        ]);
+        return $form;
     }
 }
