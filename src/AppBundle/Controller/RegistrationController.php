@@ -9,7 +9,9 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\AdressApteki;
 use AppBundle\Entity\User;
+use AppBundle\Form\AdressAptekiType;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,32 +28,23 @@ class RegistrationController extends Controller
     {
         $active="addressApteki";
 
-        $user = new User();
+        $addressApteki = new AdressApteki();
 
-        $form = $this->createForm(UserType::class,$user, [
+        $form = $this->createForm(AdressAptekiType::class,$addressApteki, [
 
         ]);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $password = $this
-                ->get('security.password_encoder')
-                ->encodePassword(
-                    $user,
-                    $user->getPlainPassword()
-                )
-            ;
-
-            $user->setPassword($password);
 
             $em = $this->getDoctrine()->getManager();
 
-            $em->persist($user);
+            $em->persist($addressApteki);
             $em->flush();
 
-            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
-            return $this->redirectToRoute('login');
+            $this->addFlash('success',"Udało zarejestrować się Adres Apteki");
+//            return $this->redirectToRoute('login');
         }
 
         return $this->render('registration/register.html.twig', [

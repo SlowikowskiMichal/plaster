@@ -27,7 +27,7 @@ class AdressApteki
      * @OneToOne(targetEntity="Apteka")
      * @JoinColumn(name="apteka_id", referencedColumnName="id", nullable=false)
      */
-    private $adress;
+    private $apteka;
 
     /**
      * @var float
@@ -73,6 +73,22 @@ class AdressApteki
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApteka()
+    {
+        return $this->apteka;
+    }
+
+    /**
+     * @param mixed $apteka
+     */
+    public function setApteka($apteka)
+    {
+        $this->apteka = $apteka;
     }
 
     /**
