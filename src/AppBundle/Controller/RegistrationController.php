@@ -18,46 +18,6 @@ use Symfony\Component\HttpFoundation\Request;
 class RegistrationController extends Controller
 {
     /**
-     * @Route("/register/user", name="userRegistration")
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \LogicException
-     */
-    public function registeUserrAction(Request $request)
-    {
-        $user = new User();
-
-        $form = $this->createForm(UserType::class,$user, [
-
-        ]);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $password = $this
-                ->get('security.password_encoder')
-                ->encodePassword(
-                    $user,
-                    $user->getPlainPassword()
-                )
-            ;
-
-            $user->setPassword($password);
-
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
-            return $this->redirectToRoute('login');
-        }
-
-        return $this->render('registration/register.html.twig', [
-            'registration_form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/register/addressapteki", name="addressAptekiRegistration")
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \LogicException
@@ -183,6 +143,206 @@ class RegistrationController extends Controller
      * @throws \LogicException
      */
     public function registerGodzinyPrzyjecAction(Request $request)
+    {
+        $user = new User();
+
+        $form = $this->createForm(UserType::class,$user, [
+
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $password = $this
+                ->get('security.password_encoder')
+                ->encodePassword(
+                    $user,
+                    $user->getPlainPassword()
+                )
+            ;
+
+            $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render('registration/register.html.twig', [
+            'registration_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/register/lek", name="lekRegistration")
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \LogicException
+     */
+    public function registerLekAction(Request $request)
+    {
+        $user = new User();
+
+        $form = $this->createForm(UserType::class,$user, [
+
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $password = $this
+                ->get('security.password_encoder')
+                ->encodePassword(
+                    $user,
+                    $user->getPlainPassword()
+                )
+            ;
+
+            $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render('registration/register.html.twig', [
+            'registration_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/register/lekarz", name="lekarzRegistration")
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \LogicException
+     */
+    public function registerLekarzAction(Request $request)
+    {
+        $user = new User();
+
+        $form = $this->createForm(UserType::class,$user, [
+
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $password = $this
+                ->get('security.password_encoder')
+                ->encodePassword(
+                    $user,
+                    $user->getPlainPassword()
+                )
+            ;
+
+            $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render('registration/register.html.twig', [
+            'registration_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/register/pacjent", name="pacjentRegistration")
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \LogicException
+     */
+    public function registerPacjentAction(Request $request)
+    {
+        $user = new User();
+
+        $form = $this->createForm(UserType::class,$user, [
+
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $password = $this
+                ->get('security.password_encoder')
+                ->encodePassword(
+                    $user,
+                    $user->getPlainPassword()
+                )
+            ;
+
+            $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render('registration/register.html.twig', [
+            'registration_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/register/stanmagazynu", name="stanMagazynuRegistration")
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \LogicException
+     */
+    public function registerStanMagazynuAction(Request $request)
+    {
+        $user = new User();
+
+        $form = $this->createForm(UserType::class,$user, [
+
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $password = $this
+                ->get('security.password_encoder')
+                ->encodePassword(
+                    $user,
+                    $user->getPlainPassword()
+                )
+            ;
+
+            $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render('registration/register.html.twig', [
+            'registration_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/register/user", name="userRegistration")
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \LogicException
+     */
+    public function registeUserrAction(Request $request)
     {
         $user = new User();
 

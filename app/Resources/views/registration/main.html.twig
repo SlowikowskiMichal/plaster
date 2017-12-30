@@ -3,8 +3,15 @@
 {% block body %}
     <div class="topNav">
         <ul>
-            <li><a id="zaloguj"  href="{{ path('login') }}">Zaloguj</a></li>
-            <li><a id="about" href="{{ path('about') }}">About</a></li>
+            <li><a id="addressApteki"  href="{{ path('addressAptekiRegistration') }}">Adres Apteki</a></li>
+            <li><a id="apteka" href="{{ path('aptekaRegistration') }}">Apteka</a></li>
+            <li><a id="choroba" href="{{ path('chorobaRegistration') }}">Choroba</a></li>
+            <li><a id="godzinyPrzyjec" href="{{ path('godzinyPrzyjecRegistration') }}">Godziny Przyjęć</a></li>
+            <li><a id="lek" href="{{ path('lekRegistration') }}"></a>Lekarz</li>
+            <li><a id="lekarz" href="{{ path('lekarzRegistration') }}"></a>Lek</li>
+            <li><a id="pacjent" href="{{ path('pacjentRegistration') }}">Pacjent</a></li>
+            <li><a id="stanMagazynu" href="{{ path('stanMagazynuRegistration') }}">Stan Magazynu</a></li>
+            <li><a id="user" href="{{ path('userRegistration') }}">Użytkownik</a></li>
             <li><img src ={{ asset('images/Plaster.png') }} alt="Logo" width="150" height="50"/></li>
 
             {% if app.user %}
