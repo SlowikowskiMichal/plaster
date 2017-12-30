@@ -28,7 +28,7 @@ class StanMagazynuType extends AbstractType
             ))
             ->add('lek', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Lek',
-                'choice_label' => 'lek',
+                'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false
             ))

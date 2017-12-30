@@ -50,7 +50,6 @@ class Lekarz
      */
     private $telephone;
 
-
     /**
      * Get id
      *
@@ -75,6 +74,17 @@ class Lekarz
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+    * Get lekarz
+    *
+    * @return string
+    */
+    public function getLekarz()
+    {
+        $nazwa = $this->id . " " . $this->imie . " " . $this->nazwisko;
+        return $nazwa;
     }
 
     /**

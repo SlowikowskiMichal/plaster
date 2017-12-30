@@ -24,6 +24,7 @@ use AppBundle\Form\ChorobaType;
 use AppBundle\Form\GodzinyPrzyjecType;
 use AppBundle\Form\LekarzType;
 use AppBundle\Form\LekType;
+use AppBundle\Form\PacjentType;
 use AppBundle\Form\StanMagazynuType;
 use AppBundle\Form\UserType;
 use Doctrine\ORM\Mapping\Entity;
@@ -124,7 +125,7 @@ class RegistrationController extends Controller
      */
     public function registerPacjentAction(Request $request)
     {
-        $form = $this->constructForm(new Pacjent(),Pacjent::class,$request);
+        $form = $this->constructForm(new Pacjent(),PacjentType::class,$request);
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
             'active' => "pacjent",

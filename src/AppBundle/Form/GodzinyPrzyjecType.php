@@ -28,7 +28,7 @@ class GodzinyPrzyjecType extends AbstractType
             ))
             ->add('tydzien', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Tydzien',
-                'choice_label' => 'user',
+                'choice_label' => 'dzien',
                 'multiple' => false,
                 'expanded' => true
             ))

@@ -52,6 +52,16 @@ class Apteka
     {
         return $this->id;
     }
+    /**
+    * Get lekarz
+    *
+    * @return string
+    */
+    public function getApteka()
+    {
+        $nazwa = $this->id . " " . $this->name;
+        return $nazwa;
+    }
 
     /**
      * @return mixed
