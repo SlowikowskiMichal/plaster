@@ -27,7 +27,6 @@ use AppBundle\Form\LekType;
 use AppBundle\Form\PacjentType;
 use AppBundle\Form\StanMagazynuType;
 use AppBundle\Form\UserType;
-use Doctrine\ORM\Mapping\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

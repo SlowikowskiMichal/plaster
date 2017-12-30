@@ -1,5 +1,8 @@
 {% extends 'logged/lekarz/main.html.twig' %}
 
+{%  block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
 
 {% block body %}
     {{  parent() }}
@@ -9,38 +12,15 @@
     </script>
 
     <div class="container">
-        <h1>Wyszukaj pacjenta</h1>
-        <input id="sInput" type="text" placeholder="Imię Nazwisko" name="uname">
-    <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
-        <pre><label id="p"></label></pre>
+        <h2>Wyszukaj pacjenta</h2>
+        {{ form(search_form) }}
     </div>
-    <style>
-        .container {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-            max-width: 500px;
-            margin: auto;
-            top: 30px;
-            position: relative;
-            padding: 50px 20px;
-            border: transparent;
-        }
-    </style>
-    <script>
-        var sInput;
-        function myFunction() {
-            sInput = document.getElementById('sInput').value;
-            if(sInput == "Marcin" || sInput == "Pacjent" || sInput == "Marcin Pacjent") {
-                document.getElementById("p").innerHTML = "Znaleziono pacjenta!\n" +
-                    "Imię: Marcin\n" +
-                    "Nazwisko: Pacjent\n" +
-                    "Lekarz: Adam Lekarz\n";
-            } else if(sInput == ""){
-                document.getElementById("p").innerHTML = "Wprowadź imię lub nazwisko pacjenta!"
-            } else{
-                document.getElementById("p").innerHTML = "Nie ma takiego pacjenta";
-            }
-        }
-    </script>
+    {% if pacjentList != null %}
+        {% for pacjent in pacjentList %}
+            <p>{{ pacjent.getImie }}</p>
+        {% endfor %}
+        <p>cycki</p>
+    {% else %}
+        <p>dupa</p>
+    {% endif %}
 {% endblock %}
