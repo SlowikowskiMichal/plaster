@@ -16,6 +16,7 @@ use AppBundle\Entity\GodzinyPrzyjec;
 use AppBundle\Entity\Lek;
 use AppBundle\Entity\Lekarz;
 use AppBundle\Entity\Pacjent;
+use AppBundle\Entity\StanMagazynu;
 use AppBundle\Entity\User;
 use AppBundle\Form\AdressAptekiType;
 use AppBundle\Form\AptekaType;
@@ -23,6 +24,7 @@ use AppBundle\Form\ChorobaType;
 use AppBundle\Form\GodzinyPrzyjecType;
 use AppBundle\Form\LekarzType;
 use AppBundle\Form\LekType;
+use AppBundle\Form\StanMagazynuType;
 use AppBundle\Form\UserType;
 use Doctrine\ORM\Mapping\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -136,7 +138,21 @@ class RegistrationController extends Controller
      */
     public function registerStanMagazynuAction(Request $request)
     {
-        $active="stanMagazynu";
+        $form = $this->constructForm(new StanMagazynu(),StanMagazynuType::class,$request);
+        return $this->render('registration/register.html.twig', [
+            'registration_form' => $form->createView(),
+            'active' => "stanMagazynu",
+        ]);
+    }
+
+    /**
+     * @Route("/register/user", name="userRegistration")
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \LogicException
+     */
+    public function registerUserAction(Request $request)
+    {
+        $active="user";
 
         $user = new User();
 
@@ -169,20 +185,6 @@ class RegistrationController extends Controller
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
             'active' => $active,
-        ]);
-    }
-
-    /**
-     * @Route("/register/user", name="userRegistration")
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \LogicException
-     */
-    public function registerUserAction(Request $request)
-    {
-        $form = $this->constructForm(new User(),UserType::class,$request);
-        return $this->render('registration/register.html.twig', [
-            'registration_form' => $form->createView(),
-            'active' => "user",
         ]);
     }
 

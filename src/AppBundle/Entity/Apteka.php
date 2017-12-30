@@ -30,12 +30,6 @@ class Apteka
     private $user;
 
     /**
-     * @OneToOne(targetEntity="AdressApteki")
-     * @JoinColumn(name="adress_id", referencedColumnName="id", nullable=false)
-     */
-    private $address;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -73,22 +67,6 @@ class Apteka
     public function setUser($user)
     {
         $this->user = $user;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param mixed $address
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
     }
 
     /**

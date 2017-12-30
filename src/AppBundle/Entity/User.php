@@ -47,6 +47,11 @@ class User implements UserInterface, Serializable
 
     private $plainPassword;
 
+    public function getUser()
+    {
+        return $this;
+    }
+
     /**
      * Get id
      *

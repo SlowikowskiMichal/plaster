@@ -49,6 +49,10 @@ class SecurityController extends Controller
 
             ));
         }
+        elseif ($user->getRoles()[0] == "ROLE_ADMIN")
+        {
+            return $this->redirectToRoute('addressAptekiRegistration');
+        }
         else {
             $home = $user->getRole()->getRole() . "Home";
             return $this->redirectToRoute($home);
