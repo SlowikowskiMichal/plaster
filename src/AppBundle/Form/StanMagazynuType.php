@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\StanMagazynu;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,17 +14,22 @@ class StanMagazynuType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('ilosc')->add('cena')->add('apteka')->add('lek');
+        $builder
+            ->add('ilosc')
+            ->add('cena')
+            ->add('apteka')
+            ->add('lek');
     }
-    
+
     /**
      * {@inheritdoc}
+     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\StanMagazynu'
-        ));
+        $resolver->setDefaults([
+            'data_class' => StanMagazynu::class
+        ]);
     }
 
     /**

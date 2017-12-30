@@ -43,7 +43,7 @@ class UserType extends AbstractType
     
     /**
      * {@inheritdoc}
-     * @throws \Symfony\Component\OptionsResolver\Exception\Acc
+     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
     public function configureOptions(OptionsResolver $resolver)
     {
