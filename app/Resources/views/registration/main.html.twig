@@ -17,6 +17,10 @@
             {% if app.user %}
                 <li><a href="{{ logout_path('main') }}">Wyloguj</a></li>
             {% endif %}
+
+            <script>
+                document.getElementById("{{active}}").classList.add('active');
+            </script>
         </ul>
     </div>
 
