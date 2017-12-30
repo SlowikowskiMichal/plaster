@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
 use AppBundle\Entity\Pacjent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,8 +33,18 @@ class LekarzController extends Controller
      */
     public function showApteki()
     {
-        return $this->render('logged/lekarz/apteki.html.twig', array(
 
+        $aptekaList = $this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery(
+                'SELECT ap, ad FROM AppBundle:AdressApteki ad
+                 INNER JOIN ad.apteka ap'
+            )
+            ->getResult();
+
+        return $this->render('logged/lekarz/apteki.html.twig', array(
+                'aptekaList' => $aptekaList
         ));
     }
 

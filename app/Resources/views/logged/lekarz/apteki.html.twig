@@ -26,48 +26,49 @@
     <script>
         var map;
         function initMap() {
-            var myLatLng = {lat: 50.0671799, lng: 19.916955};
-
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 50.0646501, lng: 19.9449799},
                 zoom: 14
             });
-            var contentString = '<div id="content">'+
-                '<div id="siteNotice">'+
-                '</div>'+
-                '<h1 id="firstHeading" class="firstHeading">Apteka B5</h1>'+
-                '<div id="bodyContent">'+
-                '<p>' +
-                '<b>Adres:</b> Czarnowiejska 66, 30-059 Kraków' +
-                '</p>'+
-                '<p>' +
-                '<b>Telefon:</b> 1234567890' +
-                '</p>'+
-                '<p><b>Godziny otwarcia:</b><br>' +
-                'Pon 10-18<br>'+
-                'Wt 10-18<br>'+
-                'Śr 10-18<br>'+
-                'Czw 10-18<br>'+
-                'Pt 10-18<br>'+
-                'Sob 10-14'+
-                '</p>'+
-                '</div>'+
-                '</div>';
 
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                animation: google.maps.Animation.DROP,
-                title: 'Apteka B5'
-            });
-            marker.addListener('click', function() {
-                infowindow.open(map, marker);
-            });
-
+            {% for apteka in aptekaList %}
+                var myLatLng = {lat: {{ apteka.getLatitude }}, lng: {{ apteka.getLongitude }}};
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    title: 'AS'
+                });
+                var contentString =
+                    '<div id="content">'+
+                        '<div id="siteNotice">'+
+                        '</div>'+
+                        '<h1 id="firstHeading" class="firstHeading">{{ apteka.getApteka.getName }}</h1>'+
+                        '<div id="bodyContent">'+
+                            '<p>' +
+                                '<b>Adres:</b> {{ apteka.getUlica }} {{ apteka.getNrBud }}, {{ apteka.getMiasto }}' +
+                            '</p>'+
+                            '<p>' +
+                                '<b>Telefon:</b> {{ apteka.getApteka.getTelephone }}' +
+                            '</p>'+
+                                '<p>' +
+                    '               <b>Godziny otwarcia:</b><br>' +
+                                    'Pon 10-18<br>'+
+                                    'Wt 10-18<br>'+
+                                    'Śr 10-18<br>'+
+                                    'Czw 10-18<br>'+
+                                    'Pt 10-18<br>'+
+                                    'Sob 10-14'+
+                                '</p>'+
+                        '</div>'+
+                    '</div>';
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+                marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+                });
+            {% endfor %}
         }
     </script>
 
