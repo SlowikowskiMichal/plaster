@@ -24,6 +24,8 @@ class RegistrationController extends Controller
      */
     public function registerAddressAptekiAction(Request $request)
     {
+        $active="addressApteki";
+
         $user = new User();
 
         $form = $this->createForm(UserType::class,$user, [
@@ -64,6 +66,8 @@ class RegistrationController extends Controller
      */
     public function registerAptekaAction(Request $request)
     {
+        $active="apteka";
+
         $user = new User();
 
         $form = $this->createForm(UserType::class,$user, [
@@ -104,6 +108,8 @@ class RegistrationController extends Controller
      */
     public function registerChorobaAction(Request $request)
     {
+        $active="choroba";
+
         $user = new User();
 
         $form = $this->createForm(UserType::class,$user, [
@@ -144,6 +150,8 @@ class RegistrationController extends Controller
      */
     public function registerGodzinyPrzyjecAction(Request $request)
     {
+        $active="godzinyPrzyjec";
+
         $user = new User();
 
         $form = $this->createForm(UserType::class,$user, [
@@ -184,6 +192,8 @@ class RegistrationController extends Controller
      */
     public function registerLekAction(Request $request)
     {
+        $active="lek";
+
         $user = new User();
 
         $form = $this->createForm(UserType::class,$user, [
@@ -224,6 +234,8 @@ class RegistrationController extends Controller
      */
     public function registerLekarzAction(Request $request)
     {
+        $active="lekarz";
+
         $user = new User();
 
         $form = $this->createForm(UserType::class,$user, [
@@ -264,6 +276,8 @@ class RegistrationController extends Controller
      */
     public function registerPacjentAction(Request $request)
     {
+        $active="pacjent";
+
         $user = new User();
 
         $form = $this->createForm(UserType::class,$user, [
@@ -304,6 +318,8 @@ class RegistrationController extends Controller
      */
     public function registerStanMagazynuAction(Request $request)
     {
+        $active="stanMagazynu";
+
         $user = new User();
 
         $form = $this->createForm(UserType::class,$user, [
@@ -344,6 +360,8 @@ class RegistrationController extends Controller
      */
     public function registeUserrAction(Request $request)
     {
+        $active="user";
+
         $user = new User();
 
         $form = $this->createForm(UserType::class,$user, [
