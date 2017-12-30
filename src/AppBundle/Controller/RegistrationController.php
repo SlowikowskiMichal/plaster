@@ -56,6 +56,7 @@ class RegistrationController extends Controller
 
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
+            'active' => $active,
         ]);
     }
 
@@ -98,6 +99,7 @@ class RegistrationController extends Controller
 
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
+            'active' => $active,
         ]);
     }
 
@@ -140,6 +142,7 @@ class RegistrationController extends Controller
 
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
+            'active' => $active,
         ]);
     }
 
@@ -182,6 +185,7 @@ class RegistrationController extends Controller
 
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
+            'active' => $active,
         ]);
     }
 
@@ -224,6 +228,7 @@ class RegistrationController extends Controller
 
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
+            'active' => $active,
         ]);
     }
 
@@ -266,6 +271,7 @@ class RegistrationController extends Controller
 
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
+            'active' => $active,
         ]);
     }
 
@@ -308,6 +314,7 @@ class RegistrationController extends Controller
 
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
+            'active' => $active,
         ]);
     }
 
@@ -350,6 +357,7 @@ class RegistrationController extends Controller
 
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
+            'active' => $active,
         ]);
     }
 
@@ -392,6 +400,7 @@ class RegistrationController extends Controller
 
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
+            'active' => $active,
         ]);
     }
 }
