@@ -48,6 +48,12 @@ class Wizyta
      */
     private $date;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="time", type="time")
+     */
+    private $time;
 
     /**
      * Get id
@@ -113,6 +119,22 @@ class Wizyta
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * @param \DateTime $time
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
     }
 }
 

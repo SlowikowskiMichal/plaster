@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\Lekarz;
 use AppBundle\Entity\Pacjent;
 use AppBundle\Entity\Wizyta;
 use AppBundle\Form\WizytaType;
@@ -186,7 +187,14 @@ class LekarzController extends Controller
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            $wizyta->setLekarz($this->getUser()->getId());
+            $lekarz = $this
+                ->getDoctrine()
+                ->getRepository(Lekarz::class)
+                ->findOneBy(
+                    ['user'=>$this->getUser()]
+                );
+
+            $wizyta->setLekarz($lekarz);
 
             $em = $this->getDoctrine()->getManager();
 
