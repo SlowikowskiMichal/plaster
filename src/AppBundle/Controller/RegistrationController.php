@@ -12,10 +12,12 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\AdressApteki;
 use AppBundle\Entity\Apteka;
 use AppBundle\Entity\Choroba;
+use AppBundle\Entity\GodzinyOtwarciaApteki;
 use AppBundle\Entity\GodzinyPrzyjec;
 use AppBundle\Entity\Lek;
 use AppBundle\Entity\Lekarz;
 use AppBundle\Entity\Pacjent;
+use AppBundle\Entity\Specjalizacja;
 use AppBundle\Entity\StanMagazynu;
 use AppBundle\Entity\User;
 use AppBundle\Form\AdressAptekiType;
@@ -76,6 +78,20 @@ class RegistrationController extends Controller
     }
 
     /**
+     * @Route("/register/godzinyotwarcia", name="godzinyOtwarciaRegistration")
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \LogicException
+     */
+    public function registerGodzinyOtwarciaAction(Request $request)
+    {
+        $form = $this->constructForm(new GodzinyOtwarciaApteki(),GodzinyOtwarciaAptekiType::class,$request);
+        return $this->render('registration/register.html.twig', [
+            'registration_form' => $form->createView(),
+            'active' => "godzinyOtwarcia",
+        ]);
+    }
+
+    /**
      * @Route("/register/godzinyprzyjec", name="godzinyPrzyjecRegistration")
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \LogicException
@@ -128,6 +144,20 @@ class RegistrationController extends Controller
         return $this->render('registration/register.html.twig', [
             'registration_form' => $form->createView(),
             'active' => "pacjent",
+        ]);
+    }
+
+    /**
+     * @Route("/register/specjalizacja", name="specjalizacjaRegistration")
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \LogicException
+     */
+    public function registerSpecjalizacjaAction(Request $request)
+    {
+        $form = $this->constructForm(new Specjalizacja(),SpecjalizacjaType::class,$request);
+        return $this->render('registration/register.html.twig', [
+            'registration_form' => $form->createView(),
+            'active' => "specjalizacja",
         ]);
     }
 

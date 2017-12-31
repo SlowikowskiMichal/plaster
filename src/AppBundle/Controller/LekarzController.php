@@ -33,7 +33,6 @@ class LekarzController extends Controller
      */
     public function showApteki()
     {
-
         $aptekaList = $this
             ->getDoctrine()
             ->getManager()
@@ -64,7 +63,6 @@ class LekarzController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showPacjenci(Request $request) {
-
         $pacjentList = null;
 
         $form = $this->createFormBuilder(null)
