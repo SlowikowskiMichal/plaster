@@ -57,6 +57,16 @@ class Pacjent
      */
     private $pesel;
 
+    /**
+     * Get pacjent
+     *
+     * @return string
+     */
+    public function getPacjent()
+    {
+        $nazwa = $this->id . " " . $this->imie . " " . $this->nazwisko . " " . $this->pesel;
+        return $nazwa;
+    }
 
     /**
      * Get id

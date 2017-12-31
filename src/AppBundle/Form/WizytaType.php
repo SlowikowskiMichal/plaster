@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +14,14 @@ class WizytaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('date')->add('pacjent')->add('lekarz');
+        $builder
+            ->add('date')
+            ->add('pacjent', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Pacjent',
+                'choice_label' => 'pacjent',
+                'multiple' => false,
+                'expanded' => false
+            ));
     }
     
     /**
