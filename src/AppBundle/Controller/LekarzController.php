@@ -53,9 +53,46 @@ class LekarzController extends Controller
     /**
      * @Route("/lekarz/leki", name="lekarzLeki")
      */
-    public function showLeki()
+    public function showLeki(Request $request)
     {
+        $lekiList = null;
+
+        $form = $this->createFormBuilder(null)
+            ->add(  'name',TextType::class, [
+                'required' => false
+            ])
+            ->add(  'wyszukaj',SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $name = $form->getData()['name'];
+
+            $name = $name . '%';
+
+            $lekiList = $this
+                ->getDoctrine()
+                ->getManager()
+                ->createQuery(
+                    'SELECT l
+                    FROM AppBundle:Lek l
+                    WHERE l.name LIKE :name
+                    ORDER BY l.name ASC')
+                ->setParameter('name', $name)
+
+                ->getResult();
+
+            return $this->render('logged/lekarz/leki.html.twig', array(
+                'search_form' => $form->createView(),
+                'lekiList' => $lekiList,
+                'active' => "pacjenci",
+            ));
+        }
+
         return $this->render('logged/lekarz/leki.html.twig', array(
+            'search_form' => $form->createView(),
+            'lekiList' => $lekiList,
             'active' => "leki",
         ));
     }
