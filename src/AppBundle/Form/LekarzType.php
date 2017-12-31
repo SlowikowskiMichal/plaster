@@ -33,6 +33,12 @@ class LekarzType extends AbstractType
                 'multiple' => false,
                 'expanded' => false
             ))
+            ->add('specjalizacja', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Specjalizacja',
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false
+            ))
             ->add('Zarejestruj',SubmitType::class);
     }
 
