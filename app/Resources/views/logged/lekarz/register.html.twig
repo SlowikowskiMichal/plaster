@@ -1,0 +1,13 @@
+{% extends 'logged/lekarz/main.html.twig' %}
+
+{%  block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+    {{  parent() }}
+    <div class="container">
+        {{ form(registration_form) }}
+    </div>
+
+{% endblock %}

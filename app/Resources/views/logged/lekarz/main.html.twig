@@ -6,6 +6,7 @@
             <li><a id="home"  href="{{ path('lekarzHome') }}">Home</a></li>
             <li><a id="pacjenci" href="{{ path('lekarzPacjenci') }}">Pacjenci</a></li>
             <li><a id="wizyty" href="{{ path('lekarzWizyty') }}">Wizyty</a></li>
+            <li><a id="dodajWizyty" href="{{ path('lekarzDodajWizyty') }}">Dodaj wizytę</a></li>
             <li><a id="apteki" href="{{ path('lekarzApteki') }}">Apteki</a></li>
             <li><a id="leki" href="{{ path('lekarzLeki') }}">Leki</a></li>
             <li><img src ={{ asset('images/Plaster.png') }} alt="Logo" width="150" height="50"/></li>
@@ -14,5 +15,9 @@
                 <li><a href="{{ logout_path('main') }}">Wyloguj</a></li>
             {% endif %}
         </ul>
+
+        <script>
+            document.getElementById("{{active}}").classList.add('active');
+        </script>
     </div>
 {% endblock %}

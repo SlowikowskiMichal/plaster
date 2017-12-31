@@ -10,6 +10,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\Pacjent;
+use AppBundle\Entity\Wizyta;
+use AppBundle\Form\WizytaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,7 +26,7 @@ class LekarzController extends Controller
     public function showHome()
     {
         return $this->render('logged/lekarz/home.html.twig', array(
-
+            'active' => "home",
         ));
     }
 
@@ -43,7 +45,8 @@ class LekarzController extends Controller
             ->getResult();
 
         return $this->render('logged/lekarz/apteki.html.twig', array(
-                'aptekaList' => $aptekaList
+            'aptekaList' => $aptekaList,
+            'active' => "apteki",
         ));
     }
 
@@ -53,7 +56,7 @@ class LekarzController extends Controller
     public function showLeki()
     {
         return $this->render('logged/lekarz/leki.html.twig', array(
-
+            'active' => "leki",
         ));
     }
 
@@ -109,13 +112,15 @@ class LekarzController extends Controller
 
             return $this->render('logged/lekarz/pacjenci.html.twig', array(
                 'search_form' => $form->createView(),
-                'pacjentList' => $pacjentList
+                'pacjentList' => $pacjentList,
+                'active' => "pacjenci",
             ));
         }
 
         return $this->render('logged/lekarz/pacjenci.html.twig', array(
             'search_form' => $form->createView(),
-            'pacjentList' => $pacjentList
+            'pacjentList' => $pacjentList,
+            'active' => "pacjenci",
         ));
     }
 
@@ -125,7 +130,38 @@ class LekarzController extends Controller
     public function showWizyty()
     {
         return $this->render('logged/lekarz/wizyty.html.twig', array(
-
+            'active' => "wizyty",
         ));
+    }
+
+    /**
+     * @Route("/lekarz/wizyty/dodaj", name="lekarzDodajWizyty")
+     */
+    public function addWizyty(Request $request){
+
+        $wizyta = new Wizyta();
+
+        $form = $this->createForm(WizytaType::class,$wizyta, [
+
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $wizyta->setLekarz($this->getUser()->getId());
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($wizyta);
+            $em->flush();
+
+            $this->addFlash('success',"Udało zarejestrować się Adres Apteki");
+//            return $this->redirectToRoute('login');
+        }
+        return $this->render('logged/lekarz/register.html.twig', [
+            'registration_form' => $form->createView(),
+            'active' => "dodajWizyty",
+        ]);
     }
 }
