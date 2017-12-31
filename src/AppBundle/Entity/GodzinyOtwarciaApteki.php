@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * GodzinyOtwarciaApteki
@@ -20,6 +22,18 @@ class GodzinyOtwarciaApteki
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ManyToOne(targetEntity="Apteka")
+     * @JoinColumn(name="apteka_id", referencedColumnName="id", nullable=false)
+     */
+    private $apteka;
+
+    /**
+     * @ManyToOne(targetEntity="Tydzien")
+     * @JoinColumn(name="tydzien_id", referencedColumnName="id", nullable=false)
+     */
+    private $tydzien;
 
     /**
      * @var \DateTime
@@ -44,6 +58,38 @@ class GodzinyOtwarciaApteki
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApteka()
+    {
+        return $this->apteka;
+    }
+
+    /**
+     * @param mixed $apteka
+     */
+    public function setApteka($apteka)
+    {
+        $this->apteka = $apteka;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTydzien()
+    {
+        return $this->tydzien;
+    }
+
+    /**
+     * @param mixed $tydzien
+     */
+    public function setTydzien($tydzien)
+    {
+        $this->tydzien = $tydzien;
     }
 
     /**

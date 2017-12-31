@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToOne;
 
 /**
@@ -28,6 +29,12 @@ class Lekarz
      * @JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
+
+    /**
+     * @ManyToOne(targetEntity="Specjalizacja")
+     * @JoinColumn(name="specjalizacja_id", referencedColumnName="id", nullable=false)
+     */
+    private $specjalizacja;
 
     /**
      * @var string
@@ -85,6 +92,22 @@ class Lekarz
     {
         $nazwa = $this->id . " " . $this->imie . " " . $this->nazwisko;
         return $nazwa;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSpecjalizacja()
+    {
+        return $this->specjalizacja;
+    }
+
+    /**
+     * @param mixed $specjalizacja
+     */
+    public function setSpecjalizacja($specjalizacja)
+    {
+        $this->specjalizacja = $specjalizacja;
     }
 
     /**
