@@ -22,26 +22,77 @@ class PacjentController extends Controller
     public function showHome()
     {
         return $this->render('logged/pacjent/home.html.twig', array(
-
+            'active' => "home",
         ));
     }
 
     /**
      * @Route("/pacjent/apteki", name="pacjentApteki")
      */
-    public function showApteki()
+    public function showApteki(Request $request)
     {
-        $aptekaList = $this
-            ->getDoctrine()
-            ->getManager()
-            ->createQuery(
-                'SELECT ap, ad FROM AppBundle:AdressApteki ad
-                 INNER JOIN ad.apteka ap'
-            )
-            ->getResult();
+        $form = $this->createFormBuilder(null)
+            ->add(  'name',TextType::class, [
+                'label' => "Nazwa",
+                'required' => false
+            ])
+            ->add(  'city',TextType::class, [
+                'label' => "Miasto",
+                'required' => false
+            ])
+            ->add(  'street',TextType::class, [
+                'label' => "Ulica",
+                'required' => false
+            ])
+            ->add(  'Wyszukaj',SubmitType::class)
+            ->getForm();
 
-        return $this->render('logged/lekarz/apteki.html.twig', array(
-            'aptekaList' => $aptekaList
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $name = $form->getData()['name'];
+            $city = $form->getData()['city'];
+            $street = $form->getData()['street'];
+
+            if($name == null)
+                $name = '%';
+            if($city == null)
+                $city = '%';
+            if($street == null)
+                $street = '%';
+
+            $aptekaList = $this
+                ->getDoctrine()
+                ->getManager()
+                ->createQuery(
+                    'SELECT ap, ad 
+                    FROM AppBundle:AdressApteki ad
+                    INNER JOIN ad.apteka ap
+                    WHERE ap.name LIKE :name
+                    AND ad.miasto LIKE :city
+                    AND ad.ulica LIKE :street'
+                )
+                ->setParameter('name', $name)
+                ->setParameter('city', $city)
+                ->setParameter('street', $street)
+                ->getResult();
+        } else {
+            $aptekaList = $this
+                ->getDoctrine()
+                ->getManager()
+                ->createQuery(
+                    'SELECT ap, ad FROM AppBundle:AdressApteki ad
+                 INNER JOIN ad.apteka ap
+                 WHERE ap.name = :name'
+                )
+                ->setParameter('name',"Kwiatek")
+                ->getResult();
+        }
+
+        return $this->render('logged/pacjent/apteki.html.twig', array(
+            'search_form' => $form->createView(),
+            'aptekaList' => $aptekaList,
+            'active' => "apteki",
         ));
     }
 
@@ -51,7 +102,7 @@ class PacjentController extends Controller
     public function showHistory()
     {
         return $this->render('logged/pacjent/historia.html.twig', array(
-
+            'active' => "historia",
         ));
     }
 
@@ -96,25 +147,64 @@ class PacjentController extends Controller
                 ->setParameter('nazwisko', $nazwisko)
                 ->getResult();
 
-            return $this->render('logged/lekarz/pacjenci.html.twig', array(
+            return $this->render('logged/pacjent/lekarze.html.twig', array(
                 'search_form' => $form->createView(),
-                'pacjentList' => $lekarzList
+                'pacjentList' => $lekarzList,
+                'active' => "lekarze",
             ));
         }
 
-        return $this->render('logged/lekarz/pacjenci.html.twig', array(
+        return $this->render('logged/pacjent/lekarze.html.twig', array(
             'search_form' => $form->createView(),
-            'pacjentList' => $lekarzList
+            'pacjentList' => $lekarzList,
+            'active' => "lekarze",
         ));
     }
 
     /**
      * @Route("/pacjent/leki", name="pacjentLeki")
      */
-    public function showLeki()
+    public function showLeki(Request $request)
     {
-        return $this->render('logged/pacjent/leki.html.twig', array(
+        $lekiList = null;
 
+        $form = $this->createFormBuilder(null)
+            ->add(  'name',TextType::class, [
+                'required' => false
+            ])
+            ->add(  'wyszukaj',SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $name = $form->getData()['name'];
+
+            $name = $name . '%';
+
+            $lekiList = $this
+                ->getDoctrine()
+                ->getManager()
+                ->createQuery(
+                    'SELECT l
+                    FROM AppBundle:Lek l
+                    WHERE l.name LIKE :name
+                    ORDER BY l.name ASC')
+                ->setParameter('name', $name)
+
+                ->getResult();
+
+            return $this->render('logged/pacjent/leki.html.twig', array(
+                'search_form' => $form->createView(),
+                'lekiList' => $lekiList,
+                'active' => "pacjenci",
+            ));
+        }
+
+        return $this->render('logged/pacjent/leki.html.twig', array(
+            'search_form' => $form->createView(),
+            'lekiList' => $lekiList,
+            'active' => "leki",
         ));
     }
 
@@ -124,7 +214,7 @@ class PacjentController extends Controller
     public function showRecepty()
     {
         return $this->render('logged/pacjent/recepty.html.twig', array(
-
+            'active' => "recepty",
         ));
     }
 
@@ -134,7 +224,7 @@ class PacjentController extends Controller
     public function showWizyty()
     {
         return $this->render('logged/pacjent/wizyty.html.twig', array(
-
+            'active' => "wizyty",
         ));
     }
 }

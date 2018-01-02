@@ -36,16 +36,66 @@ class LekarzController extends Controller
      */
     public function showApteki()
     {
-        $aptekaList = $this
-            ->getDoctrine()
-            ->getManager()
-            ->createQuery(
-                'SELECT ap, ad FROM AppBundle:AdressApteki ad
-                 INNER JOIN ad.apteka ap'
-            )
-            ->getResult();
+        $form = $this->createFormBuilder(null)
+            ->add(  'name',TextType::class, [
+                'label' => "Nazwa",
+                'required' => false
+            ])
+            ->add(  'city',TextType::class, [
+                'label' => "Miasto",
+                'required' => false
+            ])
+            ->add(  'street',TextType::class, [
+                'label' => "Ulica",
+                'required' => false
+            ])
+            ->add(  'Wyszukaj',SubmitType::class)
+            ->getForm();
 
-        return $this->render('logged/lekarz/apteki.html.twig', array(
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $name = $form->getData()['name'];
+            $city = $form->getData()['city'];
+            $street = $form->getData()['street'];
+
+            if($name == null)
+                $name = '%';
+            if($city == null)
+                $city = '%';
+            if($street == null)
+                $street = '%';
+
+            $aptekaList = $this
+                ->getDoctrine()
+                ->getManager()
+                ->createQuery(
+                    'SELECT ap, ad 
+                    FROM AppBundle:AdressApteki ad
+                    INNER JOIN ad.apteka ap
+                    WHERE ap.name LIKE :name
+                    AND ad.miasto LIKE :city
+                    AND ad.ulica LIKE :street'
+                )
+                ->setParameter('name', $name)
+                ->setParameter('city', $city)
+                ->setParameter('street', $street)
+                ->getResult();
+        } else {
+            $aptekaList = $this
+                ->getDoctrine()
+                ->getManager()
+                ->createQuery(
+                    'SELECT ap, ad FROM AppBundle:AdressApteki ad
+                 INNER JOIN ad.apteka ap
+                 WHERE ap.name = :name'
+                )
+                ->setParameter('name',"Kwiatek")
+                ->getResult();
+        }
+
+        return $this->render('logged/pacjent/apteki.html.twig', array(
+            'search_form' => $form->createView(),
             'aptekaList' => $aptekaList,
             'active' => "apteki",
         ));

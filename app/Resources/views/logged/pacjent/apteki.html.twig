@@ -3,17 +3,17 @@
 
 {% block body %}
     {{  parent() }}
-
-    <script>
-        document.getElementById("apteki").classList.add('active');
-    </script>
-
+    <div class="container">
+        <h2>Wyszukaj aptekę</h2>
+        {{ form(search_form) }}
+    </div>
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
         #map {
-            height: 100%;
+            height: 70%;
+
         }
         html, body {
             height: 100%;

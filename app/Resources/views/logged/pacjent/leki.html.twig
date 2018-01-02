@@ -4,44 +4,24 @@
 {% block body %}
     {{  parent() }}
 
-    <script>
-        document.getElementById("leki").classList.add('active');
-    </script>
-
     <div class="container">
-        <h1>Twoje leki</h1>
-        <h1>Wyszukaj lek</h1>
-        <input id="sInput" type="text" placeholder="Nazwa" name="uname">
-        <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
-        <pre><label id="p"></label></pre>
+        <h2>Wyszukaj lek</h2>
+        {{ form(search_form) }}
     </div>
-    <style>
-        .container {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-            max-width: 500px;
-            margin: auto;
-            top: 30px;
-            position: relative;
-            padding: 50px 20px;
-            border: transparent;
-        }
-    </style>
-    <script>
-        var sInput
-        function myFunction() {
-            sInput = document.getElementById('sInput').value;
-            if(sInput == "Apsik") {
-                document.getElementById("p").innerHTML = "Znaleziono Lek!\n" +
-                    "Nazwa: Apsik\n" +
-                    "Cena: 2.50\n";
-            } else if(sInput == ""){
-                document.getElementById("p").innerHTML = "Wprowadź nazwę leku!"
-            } else{
-                document.getElementById("p").innerHTML = "Nie ma takiego leku";
-            }
-        }
-    </script>
+
+    {% if lekiList != null %}
+        {% for lek in lekiList %}
+            <div class="container">
+                <p>
+                <center>
+                    <h2><b>Lek: {{ lek.getId }}</b></h2>
+                    <b>Name:</b> {{ lek.getName }}<br>
+                </center>
+                </p>
+            </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+
 
 {% endblock %}
