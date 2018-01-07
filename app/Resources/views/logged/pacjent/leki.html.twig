@@ -10,18 +10,26 @@
     </div>
 
     {% if lekiList != null %}
+        {% if lekiList is empty %}
+            <div class="container">
+                <p>
+                    Nie znaleziono leku spełniającego wymagania!
+                </p>
+            </div>
+        {% endif %}
         {% for lek in lekiList %}
             <div class="container">
                 <p>
                 <center>
-                    <h2><b>Lek: {{ lek.getId }}</b></h2>
-                    <b>Name:</b> {{ lek.getName }}<br>
+                    <h2><b>Lek: {{ lek.name }}</b></h2>
+                    <b>Nazwa Apteki:</b> {{ lek.nameApteki }} <br>
+                    <b>Adres Apteki:</b> {{ lek.miasto }}, {{ lek.ulica }} {{ lek.nrBud }} <br>
+                    <b>Cena:</b>  {{( lek.cena )|number_format(2, '.') }}<br>
                 </center>
                 </p>
             </div>
         {% endfor %}
     {% endif %}
-    </div>
 
 
 {% endblock %}
