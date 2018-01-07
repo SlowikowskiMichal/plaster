@@ -31,15 +31,19 @@
                 zoom: 14
             });
 
+            var markers =[];
+            var contents=[];
+            var infowindows=[];
+            var i = 0;
             {% for apteka in aptekaList %}
-            var myLatLng = {lat: {{ apteka.getLatitude }}, lng: {{ apteka.getLongitude }}};
-            var marker = new google.maps.Marker({
-                position: myLatLng,
+            markers[i] = new google.maps.Marker({
+                position: {lat: {{ apteka.getLatitude }}, lng: {{ apteka.getLongitude }}},
                 map: map,
                 animation: google.maps.Animation.DROP,
                 title: 'AS'
             });
-            var contentString =
+
+            contents[i] =
                 '<div id="content">'+
                 '<div id="siteNotice">'+
                 '</div>'+
@@ -53,21 +57,28 @@
                 '</p>'+
                 '<p>' +
                 '               <b>Godziny otwarcia:</b><br>' +
-                'Pon 10-18<br>'+
-                'Wt 10-18<br>'+
-                'Śr 10-18<br>'+
-                'Czw 10-18<br>'+
-                'Pt 10-18<br>'+
-                'Sob 10-14'+
+                {% for godziny in godzinyOtwarcia %}
+                        {% if godziny.id == apteka.getId %}
+                        '<b>{{ godziny.dzien }}: </b>{{ (godziny.start)|date('H:i') }} - {{ (godziny.end)|date('H:i') }}<br>'+
+                    {% endif %}
+                {% endfor %}
                 '</p>'+
                 '</div>'+
                 '</div>';
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
+
+            infowindows[i] = new google.maps.InfoWindow({
+                content: contents[i]
             });
-            marker.addListener('click', function() {
-                infowindow.open(map, marker);
+
+            markers[i].index = i;
+
+            google.maps.event.addListener(markers[i], 'click', function() {
+                console.log(this.index);
+                console.log(2);
+                infowindows[this.index].open(map,markers[this.index]);
+                map.panTo(markers[this.index].getPosition());
             });
+            i=i+1;
             {% endfor %}
         }
     </script>

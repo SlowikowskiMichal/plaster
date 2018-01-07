@@ -24,6 +24,8 @@
     </style>
 
 
+
+
     <div id="map"></div>
     <script>
         var map;
@@ -33,43 +35,54 @@
                 zoom: 14
             });
 
+            var markers =[];
+            var contents=[];
+            var infowindows=[];
+            var i = 0;
             {% for apteka in aptekaList %}
-                var myLatLng = {lat: {{ apteka.getLatitude }}, lng: {{ apteka.getLongitude }}};
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    animation: google.maps.Animation.DROP,
-                    title: 'AS'
-                });
-                var contentString =
-                    '<div id="content">'+
-                        '<div id="siteNotice">'+
-                        '</div>'+
-                        '<h1 id="firstHeading" class="firstHeading">{{ apteka.getApteka.getName }}</h1>'+
-                        '<div id="bodyContent">'+
-                            '<p>' +
-                                '<b>Adres:</b> {{ apteka.getUlica }} {{ apteka.getNrBud }}, {{ apteka.getMiasto }}' +
-                            '</p>'+
-                            '<p>' +
-                                '<b>Telefon:</b> {{ apteka.getApteka.getTelephone }}' +
-                            '</p>'+
-                                '<p>' +
-                    '               <b>Godziny otwarcia:</b><br>' +
-                                    'Pon 10-18<br>'+
-                                    'Wt 10-18<br>'+
-                                    'Śr 10-18<br>'+
-                                    'Czw 10-18<br>'+
-                                    'Pt 10-18<br>'+
-                                    'Sob 10-14'+
-                                '</p>'+
-                        '</div>'+
-                    '</div>';
-                var infowindow = new google.maps.InfoWindow({
-                    content: contentString
-                });
-                marker.addListener('click', function() {
-                    infowindow.open(map, marker);
-                });
+            markers[i] = new google.maps.Marker({
+                position: {lat: {{ apteka.getLatitude }}, lng: {{ apteka.getLongitude }}},
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: 'AS'
+            });
+
+            contents[i] =
+                '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">{{ apteka.getApteka.getName }}</h1>'+
+                '<div id="bodyContent">'+
+                '<p>' +
+                '<b>Adres:</b> {{ apteka.getUlica }} {{ apteka.getNrBud }}, {{ apteka.getMiasto }}' +
+                '</p>'+
+                '<p>' +
+                '<b>Telefon:</b> {{ apteka.getApteka.getTelephone }}' +
+                '</p>'+
+                '<p>' +
+                '               <b>Godziny otwarcia:</b><br>' +
+                    {% for godziny in godzinyOtwarcia %}
+                    {% if godziny.id == apteka.getId %}
+                '<b>{{ godziny.dzien }}: </b>{{ (godziny.start)|date('H:i') }} - {{ (godziny.end)|date('H:i') }}<br>'+
+                    {% endif %}
+                    {% endfor %}
+                '</p>'+
+                '</div>'+
+                '</div>';
+
+            infowindows[i] = new google.maps.InfoWindow({
+                content: contents[i]
+            });
+
+            markers[i].index = i;
+
+            google.maps.event.addListener(markers[i], 'click', function() {
+                console.log(this.index);
+                console.log(2);
+                infowindows[this.index].open(map,markers[this.index]);
+                map.panTo(markers[this.index].getPosition());
+            });
+            i=i+1;
             {% endfor %}
         }
     </script>
