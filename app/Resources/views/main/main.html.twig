@@ -12,4 +12,10 @@
             {% endif %}
         </ul>
     </div>
+
+    {% for message in app.flashes('error') %}
+        <div class="error">
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endblock %}

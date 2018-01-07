@@ -14,4 +14,19 @@
         {% endif %}
     </ul>
 </div>
+    {% for message in app.flashes('success') %}
+        <div class="success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="error">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <script>
+        document.getElementById("{{active}}").classList.add('active');
+    </script>
 {% endblock %}
