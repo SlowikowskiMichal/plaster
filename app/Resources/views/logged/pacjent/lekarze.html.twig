@@ -18,6 +18,12 @@
                     <b>Imię:</b> {{ lekarz.getImie }}<br>
                     <b>Nazwisko:</b> {{ lekarz.getNazwisko }}<br>
                     <b>Telefon:</b> {{ lekarz.getTelephone }}<br>
+                    <b>Godziny przyjęć</b><br>
+                    {% for godziny in godzinyPrzyjec %}
+                        {% if godziny.id == lekarz.getId %}
+                            <b>{{ godziny.dzien }}: </b>{{ (godziny.start)|date('H:i') }} - {{ (godziny.end)|date('H:i') }}<br>
+                        {% endif %}
+                    {% endfor %}
                 </center>
                 </p>
             </div>
