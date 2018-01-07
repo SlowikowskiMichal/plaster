@@ -10,6 +10,8 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
 {
@@ -38,10 +40,15 @@ class SecurityController extends Controller
     /**
      * @Route("/login", name="login")
      */
-    public function loginAction()
+    public function loginAction(Request $request, AuthenticationUtils $authUtils)
     {
         $user = $this->getUser();
 
+        $error = $authUtils->getLastAuthenticationError();
+
+        if(!empty($error)){
+            $this->addFlash('error', "Złe dane logowania!");
+        }
 
         if(!$user)
         {
@@ -75,6 +82,5 @@ class SecurityController extends Controller
     public function logoutAction()
     {
         throw new \RuntimeException('This should never be called directly!');
-        return $this->redirectToRoute('login');
     }
 }

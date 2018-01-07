@@ -210,8 +210,7 @@ class RegistrationController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success',"Udało zarejestrować się nowego użytkownika");
-            return $this->redirectToRoute('login');
+            $this->addFlash('success',"Rejestracja przebiegła pomyślnie");
         }
 
         return $this->render('registration/register.html.twig', [
@@ -241,8 +240,7 @@ class RegistrationController extends Controller
             $em->persist($entityToConstruct);
             $em->flush();
 
-            $this->addFlash('success',"Udało zarejestrować się Adres Apteki");
-//            return $this->redirectToRoute('login');
+            $this->addFlash('success', "Rejestracja przebiegła pomyślnie");
         }
         return $form;
     }

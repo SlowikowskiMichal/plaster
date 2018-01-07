@@ -34,7 +34,7 @@ class LekarzController extends Controller
     /**
      * @Route("/lekarz/apteki", name="lekarzApteki")
      */
-    public function showApteki()
+    public function showApteki(Request $request)
     {
         $form = $this->createFormBuilder(null)
             ->add(  'name',TextType::class, [
