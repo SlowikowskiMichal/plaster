@@ -1,0 +1,29 @@
+.container {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: hidden;
+    max-width: 500px;
+    margin: auto;
+    top: 30px;
+    position: relative;
+    padding: 50px 20px;
+    border: transparent;
+}
+table#leki{
+    border-collapse: collapse;
+    width: 200px;
+}
+#leki td{
+    border-width: 1px;
+    border-style: solid;
+    border-color: #000000;
+    padding:5px;
+}
+#leki .header{
+    background-color: #dbe5f1;
+    font-weight: bold;
+}
+
+#leki .emp{
+    background-color: #f3f3f3;
+}
