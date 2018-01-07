@@ -32,6 +32,9 @@ class PacjentController extends Controller
      */
     public function showApteki(Request $request)
     {
+        $aptekaList = null;
+        $godzinyOtwarcia = null;
+
         $form = $this->createFormBuilder(null)
             ->add(  'name',TextType::class, [
                 'label' => "Nazwa",
@@ -82,24 +85,30 @@ class PacjentController extends Controller
 
                 if(empty($wyniki)) {
                     $this->addFlash("error", "Nie znaleziono apteki spełniającej wymagania");
+                } else {
+                    $godzinyOtwarcia = $this
+                        ->getDoctrine()
+                        ->getManager()
+                        ->createQuery(
+                            "SELECT a.id, t.dzien, g.start, g.end
+                    FROM AppBundle:GodzinyOtwarciaApteki g
+                    JOIN g.apteka a
+                                        JOIN g.tydzien t
+                    JOIN AppBundle:AdressApteki ad WITH ad.apteka = a
+                    WHERE a.name LIKE :name
+                    AND ad.miasto LIKE :city
+                    AND ad.ulica LIKE :street")
+                        ->setParameter('name', $name)
+                        ->setParameter('city', $city)
+                        ->setParameter('street', $street)
+                        ->getResult();
                 }
 
-        } else {
-            $aptekaList = $this
-                ->getDoctrine()
-                ->getManager()
-                ->createQuery(
-                    'SELECT ap, ad FROM AppBundle:AdressApteki ad
-                 INNER JOIN ad.apteka ap
-                 WHERE ap.name = :name'
-                )
-                ->setParameter('name',"Kwiatek")
-                ->getResult();
         }
-
         return $this->render('logged/pacjent/apteki.html.twig', array(
             'search_form' => $form->createView(),
             'aptekaList' => $aptekaList,
+            'godzinyOtwarcia' => $godzinyOtwarcia,
             'active' => "apteki",
         ));
     }
@@ -120,7 +129,7 @@ class PacjentController extends Controller
     public function showLekarze(Request $request)
     {
         $lekarzList = null;
-
+        $godzinyPrzyjec = null;
         $form = $this->createFormBuilder(null)
             ->add(  'imie',TextType::class, [
                 'required' => false
@@ -177,11 +186,30 @@ class PacjentController extends Controller
 
             if(empty($wyniki)) {
                 $this->addFlash("error", "Nie znaleziono lekarza spełniającego wymagania");
+            } else {
+                $godzinyPrzyjec = $this
+                    ->getDoctrine()
+                    ->getManager()
+                    ->createQuery(
+                        "SELECT l.id, t.dzien, g.start, g.end
+                    FROM AppBundle:GodzinyPrzyjec g
+                    JOIN g.lekarz l
+                    JOIN g.tydzien t
+                    JOIN l.specjalizacja s
+                    WHERE l.imie LIKE :imie
+                    AND l.nazwisko LIKE :nazwisko
+                    AND s.name LIKE :specjalizacja
+                    ORDER BY l.id ASC")
+                    ->setParameter('imie', $imie)
+                    ->setParameter('nazwisko', $nazwisko)
+                    ->setParameter('specjalizacja', $specjalizacja)
+                    ->getResult();
             }
 
             return $this->render('logged/pacjent/lekarze.html.twig', array(
                 'search_form' => $form->createView(),
                 'pacjentList' => $lekarzList,
+                'godzinyPrzyjec' => $godzinyPrzyjec,
                 'active' => "lekarze",
             ));
         }
@@ -189,6 +217,7 @@ class PacjentController extends Controller
         return $this->render('logged/pacjent/lekarze.html.twig', array(
             'search_form' => $form->createView(),
             'pacjentList' => $lekarzList,
+            'godzinyPrzyjec' => $godzinyPrzyjec,
             'active' => "lekarze",
         ));
     }

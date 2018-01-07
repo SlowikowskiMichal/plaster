@@ -36,6 +36,8 @@ class LekarzController extends Controller
      */
     public function showApteki(Request $request)
     {
+        $aptekaList = null;
+
         $form = $this->createFormBuilder(null)
             ->add(  'name',TextType::class, [
                 'label' => "Nazwa",
@@ -80,17 +82,6 @@ class LekarzController extends Controller
                 ->setParameter('name', $name)
                 ->setParameter('city', $city)
                 ->setParameter('street', $street)
-                ->getResult();
-        } else {
-            $aptekaList = $this
-                ->getDoctrine()
-                ->getManager()
-                ->createQuery(
-                    'SELECT ap, ad FROM AppBundle:AdressApteki ad
-                 INNER JOIN ad.apteka ap
-                 WHERE ap.name = :name'
-                )
-                ->setParameter('name',"Kwiatek")
                 ->getResult();
         }
 
