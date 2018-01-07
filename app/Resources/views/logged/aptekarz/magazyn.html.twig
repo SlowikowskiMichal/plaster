@@ -1,5 +1,8 @@
 {% extends 'logged/aptekarz/main.html.twig' %}
 
+{%  block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/lekTable.css') }}">
+{% endblock %}
 
 {% block body %}
     {{  parent() }}
@@ -9,60 +12,32 @@
     </script>
 
     <div class="container">
-
-        <h1>Dostępne leki</h1>
+    <h1>Dostępne leki</h1>
         <center>
+        {% if lekiList != null %}
             <table id="leki">
             <tr class="header">
                 <td>Nazwa</td>
                 <td>Cena</td>
-                <td>Stan</td>
+                <td>Dostępność</td>
                 <td>Ilość</td>
-
             </tr>
-            <tr class =emp>
-                <td>Apsik</td>
-                <td>2.50</td>
-                <td>dostepny</td>
-                <td>99</td>
-            </tr>
+            {% for lek in lekiList %}
+                    <tr class =emp>
+                        <td>{{ lek.name }}</td>
+                        <td>{{ lek.cena }}</td>
+                        <td>{% if lek.ilosc > 0 %}
+                                Dostępny
+                            {% else %}
+                                Niedostępny
+                            {% endif %}
+                        </td>
+                        <td>{{ lek.ilosc }}</td>
+                    </tr>
+            {% endfor %}
             </table>
+        {% endif %}
         </center>
-
     </div>
-
-    <style>
-        .container {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-            max-width: 500px;
-            margin: auto;
-            top: 30px;
-            position: relative;
-            padding: 50px 20px;
-            border: transparent;
-        }
-        table#leki{
-            border-collapse: collapse;
-            width: 200px;
-        }
-        #leki td{
-            border-width: 1px;
-            border-style: solid;
-            border-color: #000000;
-            padding:5px;
-        }
-        #leki .header{
-            background-color: #dbe5f1;
-            font-weight: bold;
-        }
-
-        #leki .emp{
-            background-color: #f3f3f3;
-        }
-
-
-    </style>
 
 {% endblock %}
