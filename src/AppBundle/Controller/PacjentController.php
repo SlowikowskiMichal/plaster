@@ -324,7 +324,7 @@ class PacjentController extends Controller
                     AND ap.name LIKE :apteka
                     AND ad.miasto LIKE :miasto
                     AND ad.ulica LIKE :ulica
-                    ORDER BY l.name ASC')
+                    ORDER BY l.name, m.cena ASC')
                 ->setParameter('name', $name)
                 ->setParameter('apteka', $apteka)
                 ->setParameter('miasto', $city)

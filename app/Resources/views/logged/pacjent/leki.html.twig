@@ -25,6 +25,11 @@
                     <b>Nazwa Apteki:</b> {{ lek.nameApteki }} <br>
                     <b>Adres Apteki:</b> {{ lek.miasto }}, {{ lek.ulica }} {{ lek.nrBud }} <br>
                     <b>Cena:</b>  {{( lek.cena )|number_format(2, '.') }}<br>
+                    {% if lek.ilosc > 0  %}
+                        <b>Dostępny</b>
+                    {% else %}
+                        <font color ="red"><b>Niedostępny</b></font>
+                    {% endif %}
                 </center>
                 </p>
             </div>
