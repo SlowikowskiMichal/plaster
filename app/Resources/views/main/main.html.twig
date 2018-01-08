@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="topNav">
+        <ul>
+            <li><a id="zaloguj"  href="{{ path('login') }}">Zaloguj</a></li>
+            <li><a id="about" href="{{ path('about') }}">About</a></li>
+            <li><img src ={{ asset('images/Plaster.png') }} alt="Logo" width="150" height="50"/></li>
+
+            {% if app.user %}
+                <li><a href="{{ logout_path('main') }}">Wyloguj</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    {% for message in app.flashes('error') %}
+        <div class="error">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endblock %}

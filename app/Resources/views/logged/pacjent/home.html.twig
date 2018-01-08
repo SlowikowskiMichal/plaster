@@ -1,19 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'logged/pacjent/main.html.twig' %}
 
-{%  block stylesheets %}
-    {{  parent() }}
-{% endblock %}
 
 {% block body %}
     {{  parent() }}
 
     <div class="container">
-        <h1>Witaj, Marcin Pacjent!</h1>
+        <h1>Witaj, {{ pacjent[0].imie }} {{ pacjent[0].nazwisko }}!</h1>
         <h3>Ostatnie powiadomienia:</h3>
-        Brak zbliżających się wizyt
+        {% if wizytyList != null %}
+            <h3>Nadchodziące wizyty!</h3>
+            {% for wizyta in wizytyList %}
+                <p>
+                    {{ (wizyta.date)|date('d m Y') }}
+                    Godzina: {{ (wizyta.time)|date('H:i') }}<br>
+                    {{ wizyta.specjalizacja }} {{ wizyta.imie }} {{ wizyta.nazwisko }}<br>
+                    Telefon: {{ wizyta.telephone}}<br>
+                </p>
+            {% endfor %}
+        {% else %}
+            Brak zbliżających się wizyt
+        {% endif %}
     </div>
-
-
 
     <style>
         .container {

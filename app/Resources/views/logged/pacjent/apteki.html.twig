@@ -1,18 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'logged/pacjent/main.html.twig' %}
 
-{%  block stylesheets %}
-    {{  parent() }}
-{% endblock %}
 
 {% block body %}
     {{  parent() }}
-
+    <div class="container">
+        <h2>Wyszukaj aptekę</h2>
+        {{ form(search_form) }}
+    </div>
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
         #map {
-            height: 100%;
+            height: 70%;
+
         }
         html, body {
             height: 100%;
@@ -25,48 +26,60 @@
     <script>
         var map;
         function initMap() {
-            var myLatLng = {lat: 50.0671799, lng: 19.916955};
-
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 50.0646501, lng: 19.9449799},
                 zoom: 14
             });
-            var contentString = '<div id="content">'+
+
+            var markers =[];
+            var contents=[];
+            var infowindows=[];
+            var i = 0;
+            {% for apteka in aptekaList %}
+            markers[i] = new google.maps.Marker({
+                position: {lat: {{ apteka.getLatitude }}, lng: {{ apteka.getLongitude }}},
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: 'AS'
+            });
+
+            contents[i] =
+                '<div id="content">'+
                 '<div id="siteNotice">'+
                 '</div>'+
-                '<h1 id="firstHeading" class="firstHeading">Apteka B5</h1>'+
+                '<h1 id="firstHeading" class="firstHeading">{{ apteka.getApteka.getName }}</h1>'+
                 '<div id="bodyContent">'+
                 '<p>' +
-                '<b>Adres:</b> Czarnowiejska 66, 30-059 Kraków' +
+                '<b>Adres:</b> {{ apteka.getUlica }} {{ apteka.getNrBud }}, {{ apteka.getMiasto }}' +
                 '</p>'+
                 '<p>' +
-                '<b>Telefon:</b> 1234567890' +
+                '<b>Telefon:</b> {{ apteka.getApteka.getTelephone }}' +
                 '</p>'+
-                '<p><b>Godziny otwarcia:</b><br>' +
-                'Pon 10-18<br>'+
-                'Wt 10-18<br>'+
-                'Śr 10-18<br>'+
-                'Czw 10-18<br>'+
-                'Pt 10-18<br>'+
-                'Sob 10-14'+
+                '<p>' +
+                '               <b>Godziny otwarcia:</b><br>' +
+                {% for godziny in godzinyOtwarcia %}
+                        {% if godziny.id == apteka.getId %}
+                        '<b>{{ godziny.dzien }}: </b>{{ (godziny.start)|date('H:i') }} - {{ (godziny.end)|date('H:i') }}<br>'+
+                    {% endif %}
+                {% endfor %}
                 '</p>'+
                 '</div>'+
                 '</div>';
 
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
+            infowindows[i] = new google.maps.InfoWindow({
+                content: contents[i]
             });
 
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                animation: google.maps.Animation.DROP,
-                title: 'Apteka B5'
-            });
-            marker.addListener('click', function() {
-                infowindow.open(map, marker);
-            });
+            markers[i].index = i;
 
+            google.maps.event.addListener(markers[i], 'click', function() {
+                console.log(this.index);
+                console.log(2);
+                infowindows[this.index].open(map,markers[this.index]);
+                map.panTo(markers[this.index].getPosition());
+            });
+            i=i+1;
+            {% endfor %}
         }
     </script>
 

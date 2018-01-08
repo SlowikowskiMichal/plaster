@@ -1,16 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'logged/lekarz/main.html.twig' %}
 
-{%  block stylesheets %}
-    {{  parent() }}
-{% endblock %}
 
 {% block body %}
     {{  parent() }}
 
     <div class="container">
-        <h1>Witaj, Adam Lekarz!</h1>
-        <h3>Ostatnie powiadomienia:</h3>
-        <red>Brak leków!</red>
+        <h1>Witaj, {{ lekarz[0].imie }} {{ lekarz[0].nazwisko }}!</h1>
+        {% if wizytyList != null %}
+            <h3>Wizyty na dzień {{ (wizytyList[0].date)|date('d m Y') }}</h3>
+            {% for wizyta in wizytyList %}
+                <p>
+                    Godzina: {{ (wizyta.time)|date('H:i') }}<br>
+                    {{ wizyta.imie }} {{ wizyta.nazwisko }}<br>
+                    Telefon: {{ wizyta.telephone}}<br>
+                </p>
+            {% endfor %}
+        {% else %}
+            Brak wizyt na dzisiaj!
+        {% endif %}
     </div>
 
 
@@ -34,6 +41,4 @@
             overflow: hidden;
             color: red;
         }
-    </style>
-
 {% endblock %}

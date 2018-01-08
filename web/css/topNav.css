@@ -1,5 +1,5 @@
 body {margin:0;}
-ul {
+.topNav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -8,17 +8,17 @@ ul {
     border-bottom: 3px solid #7af5a3;
     background-color: #454545;
 }
-li {
+.topNav li {
     float: left;
 }
 
-li img {
+.topNav li img {
     position: absolute;
     right: 5px;
     border-radius: 8px;
 }
 
-li a {
+.topNav li a {
     display: block;
     text-align: center;
     cursor: pointer;
@@ -39,12 +39,12 @@ li a {
     color: white;
 }
 
-li a:hover {
+.topNav li a:hover {
     background-color: #088088;
     color: black;
 }
 
-li a.active {
+.topNav li a.active {
     background-color: #7af5a3;
     color: black;
     font-weight: bold;

@@ -1,16 +1,44 @@
-{% extends 'base.html.twig' %}
-
-{%  block stylesheets %}
-    {{  parent() }}
-{% endblock %}
+{% extends 'logged/aptekarz/main.html.twig' %}
 
 {% block body %}
     {{  parent() }}
 
+    <script>
+        document.getElementById("home").classList.add('active');
+    </script>
+
     <div class="container">
-        <h1>Witaj, Adam Aptekarz!</h1>
+        <h1>Apteka: {{ apteka[0].name }}</h1>
         <h3>Ostatnie powiadomienia:</h3>
-        Brak
+        {% if lekiList != null %}
+            Kończą się zapasy następujących leków:
+            <center>
+            <table>
+                <tr>
+                    <b>
+                    <th>Nazwa</th>
+                    <th>Ilość</th>
+                    </b>
+                </tr>
+            {% for lek in lekiList %}
+                <tr>
+                    <th>
+                        {{ lek.name }}
+                    </th>
+                    <th>
+                    {% if lek.ilosc == 0 %}
+                        <b><font color="red">BRAK</font> </b>
+                    {% else %}
+                        {{ lek.ilosc }}
+                    {% endif %}
+                    </th>
+                </tr>
+            {% endfor %}
+            </table>
+            </center>
+        {% else %}
+            Brak powiadomnień!
+        {% endif %}
     </div>
 
     <style>

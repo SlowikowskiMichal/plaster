@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="topNav">
+    <ul>
+        <li><a id="home"  href="{{ path('aptekaHome') }}">Home</a></li>
+        <li><a id="recepty" href="{{ path('aptekaRecepty') }}">Recepty</a></li>
+        <li><a id="magazyn" href="{{ path('aptekaMagazyn') }}">Magazyn</a></li>
+        <li><a id="leki" href="{{ path('aptekaLeki') }}">Leki</a></li>
+        <li><img src ={{ asset('images/Plaster.png') }} alt="Logo" width="150" height="50"/></li>
+
+        {% if app.user %}
+            <li><a href="{{ logout_path('main') }}">Wyloguj</a></li>
+        {% endif %}
+    </ul>
+</div>
+    {% for message in app.flashes('success') %}
+        <div class="success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="error">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <script>
+        document.getElementById("{{active}}").classList.add('active');
+    </script>
+{% endblock %}

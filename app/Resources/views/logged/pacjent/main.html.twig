@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="topNav">
+        <ul>
+            <li><a id="home"  href="{{ path('pacjentHome') }}">Home</a></li>
+            <li><a id="historia"  href="{{ path('pacjentHistoria') }}">Historia</a></li>
+            <li><a id="recepty" href="{{ path('pacjentRecepty') }}">Recepty</a></li>
+            <li><a id="wizyty"  href="{{ path('pacjentWizyty') }}">Wizyty</a></li>
+            <li><a id="lekarze" href="{{ path('pacjentLekarze') }}">Lekarze</a></li>
+            <li><a id="apteki"  href="{{ path('pacjentApteki') }}">Apteki</a></li>
+            <li><a id="leki" href="{{ path('pacjentLeki') }}">Leki</a></li>
+            <li><img src ={{ asset('images/Plaster.png') }} alt="Logo" width="150" height="50"/></li>
+
+            {% if app.user %}
+                <li><a href="{{ logout_path('main') }}">Wyloguj</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="error">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <script>
+        document.getElementById("{{active}}").classList.add('active');
+    </script>
+
+{% endblock %}

@@ -1,18 +1,37 @@
-{% extends 'base.html.twig' %}
+{% extends 'logged/aptekarz/main.html.twig' %}
 
-{%  block stylesheets %}
-    {{  parent() }}
-{% endblock %}
 
 {% block body %}
     {{  parent() }}
 
     <div class="container">
-        <h1>Wyszukaj receptę</h1>
-        <input id="sInput" type="text" placeholder="Numer" name="uname">
-        <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
-        <pre><label id="p"></label></pre>
+        <h2>Wyszukaj lek</h2>
+        {{ form(search_form) }}
     </div>
+
+    {% if receptaList != null %}
+        {% for recepta in receptaList %}
+            <div class="container">
+                <p>
+                <center>
+                    <h2><b>Data:</b>  {{( recepta.date )|date('d-m-Y') }}</h2>
+                    <br>
+                    <b>Pacjent:</b> {{ recepta.pimie }} {{ recepta.pnazwisko }}<br>
+                    <b>Lekarz:</b> {{ recepta.limie }} {{ recepta.lnazwisko }}<br>
+                    <b>Nr tel lekarza:</b> {{ recepta.ltel }}<br>
+                    <b>Nazwa leku:</b> {{ recepta.lnamek }}<br>
+                    {% if  recepta.ilosc <= 0%}
+                        <b><font color="red">Brak leku</font></b>
+                    {% else %}
+                        <b>Ilość:</b> {{ recepta.ilosc }}
+                        <button onclick="location.href='{{ url('zrealizujRecepte',{'nrR': recepta.id }) }}'">Zrealizuj</button>
+                    {% endif %}
+                </center>
+                </p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <style>
         .container {
             font-family: Arial, sans-serif;
@@ -26,16 +45,5 @@
             border: transparent;
         }
     </style>
-    <script>
-        var sInput
-        function myFunction() {
-            sInput = document.getElementById('sInput').value;
-            if(sInput == "") {
-                document.getElementById("p").innerHTML = "Wpisz numer recepty";
-            } else{
-                document.getElementById("p").innerHTML = "Nie ma takiej recepty";
-            }
-        }
-    </script>
 
 {% endblock %}

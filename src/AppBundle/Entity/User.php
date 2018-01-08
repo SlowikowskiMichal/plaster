@@ -1,98 +1,181 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: slovi
- * Date: 05.11.2017
- * Time: 16:52
- */
 
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * User
+ *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, Serializable
 {
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @ManyToOne(targetEntity="UserRole")
+     * @JoinColumn(name="userRole_id", referencedColumnName="id", nullable=false)
+     */
+    private $role;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=64)
      */
     private $password;
 
-    /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
+    private $plainPassword;
 
-    public function __construct()
+    public function getUser()
     {
-        $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid('', true));
+        return $this;
     }
 
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
     public function getUsername()
     {
         return $this->username;
     }
 
-    public function getSalt()
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
     {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
-        return null;
+        $this->password = $password;
+
+        return $this;
     }
 
+    /**
+     * Get password
+     *
+     * @return string
+     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    public function getRoles()
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
     {
-        return array('ROLE_USER');
+        return $this->plainPassword;
     }
 
-    public function eraseCredentials()
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
     {
+        $this->plainPassword = $plainPassword;
     }
 
-    /** @see \Serializable::serialize() */
     public function serialize()
     {
-        return serialize(array(
+        return serialize([
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt,
-        ));
+        ]);
     }
 
-    /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
         list (
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt
             ) = unserialize($serialized);
     }
+
+    public function getRoles()
+    {
+        return [
+            $this->getRole()->getRole()
+        ];
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
 }
+

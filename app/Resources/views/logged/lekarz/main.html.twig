@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="topNav">
+        <ul>
+            <li><a id="home"  href="{{ path('lekarzHome') }}">Home</a></li>
+            <li><a id="pacjenci" href="{{ path('lekarzPacjenci') }}">Pacjenci</a></li>
+            <li><a id="dodajDiagnoza" href="{{ path('lekarzDodajDiagnoza') }}">Dodaj diagnozę</a></li>
+            <li><a id="dodajRecepte" href="{{ path('lekarzDodajRecepte') }}">Dodaj receptę</a></li>
+            <li><a id="wizyty" href="{{ path('lekarzWizyty') }}">Wizyty</a></li>
+            <li><a id="dodajWizyty" href="{{ path('lekarzDodajWizyty') }}">Dodaj wizytę</a></li>
+            <li><a id="apteki" href="{{ path('lekarzApteki') }}">Apteki</a></li>
+            <li><a id="leki" href="{{ path('lekarzLeki') }}">Leki</a></li>
+            <li><img src ={{ asset('images/Plaster.png') }} alt="Logo" width="150" height="50"/></li>
+
+            {% if app.user %}
+                <li><a href="{{ logout_path('main') }}">Wyloguj</a></li>
+            {% endif %}
+        </ul>
+
+        {% for message in app.flashes('success') %}
+            <div class="success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {% for message in app.flashes('error') %}
+            <div class="error">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <script>
+            document.getElementById("{{active}}").classList.add('active');
+        </script>
+    </div>
+{% endblock %}

@@ -1,52 +1,33 @@
-{% extends 'base.html.twig' %}
+{% extends 'logged/pacjent/main.html.twig' %}
 
-{%  block stylesheets %}
-    {{  parent() }}
-{% endblock %}
 
 {% block body %}
     {{  parent() }}
+
     <div class="container">
-        <h1>Twoi lekarze</h1>
-        <label>
-            Imię: Adam<br>
-            Nazwisko: Lekarz<br>
-            Dostępność: Pon 10 - 18<br>Wt 10 - 18<br>Śr 10 - 18<br>Czw 10 - 18<br>Pt 10 - 18<br>
-            Telefon: 012 345 678<br>
-        </label>
-        <h1>Wyszukaj Lekarza</h1>
-        <input id="sInput" type="text" placeholder="Imię Nazwisko" name="uname">
-        <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
-        <pre><label id="p"></label></pre>
+        <h2>Wyszukaj lekarza</h2>
+        {{ form(search_form) }}
     </div>
-    <style>
-        .container {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-            max-width: 500px;
-            margin: auto;
-            top: 30px;
-            position: relative;
-            padding: 50px 20px;
-            border: transparent;
-        }
-    </style>
-    <script>
-        var sInput;
-        function myFunction() {
-            sInput = document.getElementById('sInput').value;
-            if(sInput == "Adam" || sInput == "Lekarz" || sInput == "Adam Lekarz") {
-                document.getElementById("p").innerHTML = "Znaleziono lekarza!\n" +
-                    "Imię: Adam\n" +
-                    "Nazwisko: Lekarz\n" +
-                    "Dostępność: Pon 10 - 18\nWt 10 - 18\nŚr 10 - 18\nCzw 10 - 18\nPt 10 - 18\n" +
-                    "Telefon: 012 345 678\n";
-            } else if(sInput == ""){
-                document.getElementById("p").innerHTML = "Wprowadź imię lub nazwisko lekarza!"
-            } else{
-                document.getElementById("p").innerHTML = "Nie ma takiego lekarza";
-            }
-        }
-    </script>
+
+    {% if pacjentList != null %}
+        {% for lekarz in pacjentList %}
+            <div class="container">
+                <p>
+                <center>
+                    <h2><b>Lekarz: {{ lekarz.getSpecjalizacja.getName }}</b></h2>
+                    <b>Imię:</b> {{ lekarz.getImie }}<br>
+                    <b>Nazwisko:</b> {{ lekarz.getNazwisko }}<br>
+                    <b>Telefon:</b> {{ lekarz.getTelephone }}<br>
+                    <b>Godziny przyjęć</b><br>
+                    {% for godziny in godzinyPrzyjec %}
+                        {% if godziny.id == lekarz.getId %}
+                            <b>{{ godziny.dzien }}: </b>{{ (godziny.start)|date('H:i') }} - {{ (godziny.end)|date('H:i') }}<br>
+                        {% endif %}
+                    {% endfor %}
+                </center>
+                </p>
+            </div>
+        {% endfor %}
+    {% endif %}
+    </div>
 {% endblock %}
