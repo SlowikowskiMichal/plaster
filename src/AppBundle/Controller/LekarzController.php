@@ -39,9 +39,26 @@ class LekarzController extends Controller
                 WHERE l.user = :id')
             ->setParameter('id', $id)
             ->getResult();
+
+        $wizytyList = $this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery(
+                'SELECT p.imie, p.nazwisko, p.telephone, w.date, w.time
+                    FROM AppBundle:Wizyta w
+                    JOIN AppBundle:Pacjent p WITH p.id = w.pacjent
+                    JOIN AppBundle:Lekarz l WITH l.id = w.lekarz
+                    WHERE l.user = :id
+                    AND :now = w.date
+                    ORDER BY w.time ASC')
+            ->setParameter('id', $id)
+            ->setParameter('now', date_format(new \DateTime(),"Y-m-d"))
+            ->getResult();
+
         return $this->render('logged/lekarz/home.html.twig', array(
             'active' => "home",
             'lekarz' => $lekarz,
+            'wizytyList' => $wizytyList,
         ));
     }
 
