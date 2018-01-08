@@ -10,20 +10,22 @@
     </div>
 
     {% if receptaList != null %}
-        {% if receptaList is empty %}
-            <div class="container">
-                <p>
-                    Nie znaleziono leku spełniającego wymagania!
-                </p>
-            </div>
-        {% endif %}
         {% for recepta in receptaList %}
             <div class="container">
                 <p>
                 <center>
-                    <h2><b>Lek: {{ lek.name }}</b></h2>
-                    <b>Ilość:</b> {{ lek.ilosc }} <br>
-                    <b>Cena:</b>  {{( lek.cena )|number_format(2, '.') }}<br>
+                    <h2><b>Data:</b>  {{( recepta.date )|date('d-m-Y') }}</h2>
+                    <br>
+                    <b>Pacjent:</b> {{ recepta.pimie }} {{ recepta.pnazwisko }}<br>
+                    <b>Lekarz:</b> {{ recepta.limie }} {{ recepta.lnazwisko }}<br>
+                    <b>Nr tel lekarza:</b> {{ recepta.ltel }}<br>
+                    <b>Nazwa leku:</b> {{ recepta.lnamek }}<br>
+                    {% if  recepta.ilosc <= 0%}
+                        <b><font color="red">Brak leku</font></b>
+                    {% else %}
+                        <b>Ilość:</b> {{ recepta.ilosc }}
+                        <button onclick="location.href='{{ url('zrealizujRecepte',{'nrR': recepta.id }) }}'">Zrealizuj</button>
+                    {% endif %}
                 </center>
                 </p>
             </div>
