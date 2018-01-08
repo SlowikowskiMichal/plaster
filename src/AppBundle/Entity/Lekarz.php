@@ -90,7 +90,7 @@ class Lekarz
     */
     public function getLekarz()
     {
-        $nazwa = $this->id . " " . $this->imie . " " . $this->nazwisko;
+        $nazwa = $this->id . " " . $this->specjalizacja->getName() . " "  . $this->imie . " " . $this->nazwisko;
         return $nazwa;
     }
 
