@@ -116,7 +116,7 @@ class LekarzController extends Controller
                 ->getResult();
         }
 
-        return $this->render('logged/pacjent/apteki.html.twig', array(
+        return $this->render('logged/lekarz/apteki.html.twig', array(
             'search_form' => $form->createView(),
             'aptekaList' => $aptekaList,
             'active' => "apteki",
