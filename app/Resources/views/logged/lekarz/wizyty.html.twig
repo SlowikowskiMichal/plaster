@@ -4,37 +4,54 @@
 {% block body %}
     {{  parent() }}
 
-    <div class="container">
-        <h1>Nadchodzące wizyty</h1>
-    </div>
+    <link rel="stylesheet" href="{{ asset('css/calendar.css')}}">
+    <script src="{{ asset('js/calendar.js')}}"></script>
+    <p>
+        <center>
+            <div id="calendar">
+            </div>
+        </center>
+    </p>
+    <script type="text/javascript" src="{{ asset('js/calendar.js')}}"></script>
+    <script>
+        var events = [];
+        {% if wizytyList != null %}
+            var title = [];
+            var i = 0;
+            var data = {{ (wizytyList[0].date)|date('Y/m/d') }};
+            var y = {{ (wizytyList[0].date)|date('Y') }};
+            var m = {{ (wizytyList[0].date)|date('m') }} -1;
+            var d = {{ (wizytyList[0].date)|date('d') }};
 
-    <div class="calendar">
-    <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;height=200&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=b9fvu0fljlstun5suq0eh1s2v4%40group.calendar.google.com&amp;color=%238D6F47&amp;ctz=Europe%2FWarsaw" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-    </div>
-    <style>
-        .container {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-            max-width: 500px;
-            margin: auto;
-            top: 30px;
-            position: relative;
-            padding: 50px 20px;
-            border: transparent;
-        }
-        .calendar{
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-            max-width: 800px;
-            margin: auto;
-            top: 30px;
-            position: relative;
-            padding: 50px 20px;
-            border: transparent;
+            {% for wizyta in wizytyList %}
+                if(data != {{ (wizyta.date)|date('Y/m/d') }}) {
+                    events[i] = {'Date':
+                        new Date(y, m, d),
+                        'Title': title
+                        };
+                    i += 1;
+                    title="";
+                    data = {{ (wizyta.date)|date('Y/m/d') }}
+                }
+                title += '{{ (wizyta.time)|date('H:i') }}<br>' +
+                 '{{ wizyta.imie }} {{ wizyta.nazwisko }}<br>' +
+                 'Telefon: {{ wizyta.telephone}}<br>'
 
-        }
-    </style>
-
+                y = {{ (wizyta.date)|date('Y') }};
+                m = {{ (wizyta.date)|date('m') }} -1;
+                d = {{ (wizyta.date)|date('d') }};
+            {% endfor %}
+            events[i] =
+                {
+                    'Date': new Date(
+                        y,
+                        m,
+                        d
+                    ), 'Title': title
+                };
+        {% endif %}
+        var settings = {};
+        var element = document.getElementById('calendar');
+        calendar(element, events, settings);
+    </script>
 {% endblock %}
