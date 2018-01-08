@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Apteka;
 use AppBundle\Entity\Recepta;
 use AppBundle\Entity\StanMagazynu;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -243,15 +244,17 @@ class AptekaController extends Controller
      * @Route("/apteka/recepty/realizacja/{nrR}", name="zrealizujRecepte")
      */
     public function realizacja(Request $request, $nrR){
-
         $em = $this->getDoctrine()->getManager();
+        $id = $this->getUser()->getId();
+        $apteka = $em->getRepository(Apteka::class)->findOneBy(['user' => $id]);
         $recepta = $em->getRepository(Recepta::class)->find($nrR);
 
         if(!$recepta) {
             $this->addFlash("error", "Wystąpił błąd. Nie znaleziono recepty w bazie");
         } else {
             $magazyn = $em->getRepository(StanMagazynu::class)->findOneBy(
-                ['lek' => $recepta->getLek()]
+                ['apteka' => $apteka,
+                'lek' => $recepta->getLek()]
             );
 
             if(!$magazyn){
@@ -265,5 +268,85 @@ class AptekaController extends Controller
         }
 
         return $this->redirectToRoute('aptekaRecepty');
+    }
+
+    /**
+     * @Route("/apteka/recepty/stanMagazynu", name="aptekaStanMagazynu")
+     */
+    public function addStanMagazynu(Request $request){
+
+        $form = $this->createFormBuilder(null)
+            ->add(  'lek',EntityType::class, [
+                'class' => "AppBundle\Entity\Lek",
+                'label' => "Lek ",
+                'choice_label' => 'name',
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+            ])
+            ->add('ilosc', TextType::class,[
+                'label' => "Ilość",
+                'required' => true,
+            ])
+            ->add('cena', TextType::class,[
+                'label' => "Cena",
+                'required' => true,
+            ])
+            ->add(  'Zaktualizuj',SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $id = $this->getUser()->getId();
+            $em = $this->getDoctrine()->getManager();
+            $apteka = $em->getRepository(Apteka::class)->findOneBy(['user' => $id]);
+
+            $lek = $form->getData()['lek'];
+            $ilosc = $form->getData()['ilosc'];
+            $cena = $form->getData()['cena'];
+
+            $magazyn = $em->getRepository(StanMagazynu::class)->findOneBy(
+                ['lek' => $lek,
+                'apteka' => $apteka]
+            );
+
+            if($ilosc > 0) {
+                if (!$magazyn) {
+                    $apteka = $this
+                        ->getDoctrine()
+                        ->getManager()
+                        ->createQuery(
+                            'SELECT  ap
+                FROM AppBundle:Apteka ap
+                WHERE ap.user = :id')
+                        ->setParameter('id', $id)
+                        ->getResult();
+
+                    $magazyn = new StanMagazynu();
+                    $magazyn->setApteka($apteka[0]);
+                    $em->persist($magazyn);
+                }
+
+                $magazyn->setCena($cena);
+                $magazyn->setIlosc($ilosc);
+                $magazyn->setLek($lek);
+
+                $em->flush();
+                $this->addFlash("success", "Magazyn zaktualizowany");
+            } else {
+                if($magazyn){
+                    $em->remove($magazyn);
+                    $em->flush();
+                    $this->addFlash("success", "Magazyn zaktualizowany. Lek usunięty z magazynu");
+                }
+            }
+        }
+
+        return $this->render('logged/aptekarz/register.html.twig', array(
+            'registration_form' => $form->createView(),
+            'active' => "aptekaStanMagazynu",
+        ));
     }
 }
