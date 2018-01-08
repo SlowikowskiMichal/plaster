@@ -62,8 +62,10 @@
                 '<p>' +
                 '               <b>Godziny otwarcia:</b><br>' +
                     {% for godziny in godzinyOtwarcia %}
+                    {% if godziny != null %}
                     {% if godziny.id == apteka.getId %}
                 '<b>{{ godziny.dzien }}: </b>{{ (godziny.start)|date('H:i') }} - {{ (godziny.end)|date('H:i') }}<br>'+
+                    {% endif %}
                     {% endif %}
                     {% endfor %}
                 '</p>'+
