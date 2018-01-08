@@ -4,16 +4,32 @@
 {% block body %}
     {{  parent() }}
 
-    <script>
-        document.getElementById("recepty").classList.add('active');
-    </script>
-
     <div class="container">
-        <h1>Wyszukaj receptę</h1>
-        <input id="sInput" type="text" placeholder="Numer" name="uname">
-        <button id="btn" onclick="myFunction()" type="button">Szukaj</button>
-        <pre><label id="p"></label></pre>
+        <h2>Wyszukaj lek</h2>
+        {{ form(search_form) }}
     </div>
+
+    {% if receptaList != null %}
+        {% if receptaList is empty %}
+            <div class="container">
+                <p>
+                    Nie znaleziono leku spełniającego wymagania!
+                </p>
+            </div>
+        {% endif %}
+        {% for recepta in receptaList %}
+            <div class="container">
+                <p>
+                <center>
+                    <h2><b>Lek: {{ lek.name }}</b></h2>
+                    <b>Ilość:</b> {{ lek.ilosc }} <br>
+                    <b>Cena:</b>  {{( lek.cena )|number_format(2, '.') }}<br>
+                </center>
+                </p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <style>
         .container {
             font-family: Arial, sans-serif;
@@ -27,16 +43,5 @@
             border: transparent;
         }
     </style>
-    <script>
-        var sInput
-        function myFunction() {
-            sInput = document.getElementById('sInput').value;
-            if(sInput == "") {
-                document.getElementById("p").innerHTML = "Wpisz numer recepty";
-            } else{
-                document.getElementById("p").innerHTML = "Nie ma takiej recepty";
-            }
-        }
-    </script>
 
 {% endblock %}
