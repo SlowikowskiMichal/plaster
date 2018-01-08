@@ -4,23 +4,17 @@
 {% block body %}
     {{  parent() }}
 
-    <div class="container">
-        <h1>Recepty, które nie zostały wydane:</h1>
-
-    </div>
-
-    <style>
-        .container {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-            max-width: 500px;
-            margin: auto;
-            top: 30px;
-            position: relative;
-            padding: 50px 20px;
-            border: transparent;
-        }
-    </style>
-
+    {% if receptaList != null %}
+        {% for recepta in receptaList %}
+            <div class="container">
+                <p>
+                <center>
+                    <h2><b>Recepta:</b></h2>
+                    <b>Lek:</b>{{ recepta.name }}<br>
+                    <b>Data wystawienia:</b>  {{( recepta.date )|date('d-m-Y') }}<br>
+                </center>
+                </p>
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
