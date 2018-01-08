@@ -3,10 +3,11 @@
 
 {% block body %}
     {{  parent() }}
-
+    <div class="container">
+    <h2>Twoje recepty: </h2>
     {% if receptaList != null %}
         {% for recepta in receptaList %}
-            <div class="container">
+
                 <p>
                 <center>
                     <h2><b>Recepta:</b></h2>
@@ -14,7 +15,35 @@
                     <b>Data wystawienia:</b>  {{( recepta.date )|date('d-m-Y') }}<br>
                 </center>
                 </p>
-            </div>
+
         {% endfor %}
+    {% else %}
+        <b>Brak zaległych recept!</b>
     {% endif %}
+    </div>
+
+    <style>
+        .container {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            max-width: 500px;
+            margin: auto;
+            top: 30px;
+            position: relative;
+            padding: 50px 20px;
+            border: transparent;
+        }
+
+        .container ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            height: 50px;
+            overflow: hidden;
+        }
+        .container li {
+            float: left;
+        }
+    </style>
 {% endblock %}
