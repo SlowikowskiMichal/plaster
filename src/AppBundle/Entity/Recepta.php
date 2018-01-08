@@ -29,16 +29,29 @@ class Recepta
     private $id;
 
     /**
-     * @ManyToOne(targetEntity="Wizyta")
-     * @JoinColumn(name="wizyta_id", referencedColumnName="id", nullable=false)
+     * @ManyToOne(targetEntity="Pacjent")
+     * @JoinColumn(name="pacjent_id", referencedColumnName="id", nullable=false)
      */
-    private $wizyta;
+    private $pacjent;
+
+    /**
+     * @ManyToOne(targetEntity="Lekarz")
+     * @JoinColumn(name="lekarz_id", referencedColumnName="id", nullable=false)
+     */
+    private $lekarz;
 
     /**
      * @ManyToOne(targetEntity="Lek")
      * @JoinColumn(name="lek_id", referencedColumnName="id", nullable=false)
      */
     private $lek;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date")
+     */
+    private $date;
 
     /**
      * @var bool
@@ -61,17 +74,33 @@ class Recepta
     /**
      * @return mixed
      */
-    public function getWizyta()
+    public function getPacjent()
     {
-        return $this->wizyta;
+        return $this->pacjent;
     }
 
     /**
-     * @param mixed $wizyta
+     * @param mixed $pacjent
      */
-    public function setWizyta($wizyta)
+    public function setPacjent($pacjent)
     {
-        $this->wizyta = $wizyta;
+        $this->pacjent = $pacjent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLekarz()
+    {
+        return $this->lekarz;
+    }
+
+    /**
+     * @param mixed $lekarz
+     */
+    public function setLekarz($lekarz)
+    {
+        $this->lekarz = $lekarz;
     }
 
     /**
@@ -88,6 +117,22 @@ class Recepta
     public function setLek($lek)
     {
         $this->lek = $lek;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param \DateTime $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
     }
 
     /**

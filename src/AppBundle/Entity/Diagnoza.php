@@ -25,16 +25,29 @@ class Diagnoza
     private $id;
 
     /**
-     * @ManyToOne(targetEntity="Wizyta")
-     * @JoinColumn(name="wizyta_id", referencedColumnName="id", nullable=false)
-     */
-    private $wizyta;
-
-    /**
      * @ManyToOne(targetEntity="Choroba")
      * @JoinColumn(name="choroba_id", referencedColumnName="id", nullable=false)
      */
     private $choroba;
+
+    /**
+     * @ManyToOne(targetEntity="Pacjent")
+     * @JoinColumn(name="pacjent_id", referencedColumnName="id", nullable=false)
+     */
+    private $pacjent;
+
+    /**
+     * @ManyToOne(targetEntity="Lekarz")
+     * @JoinColumn(name="lekarz_id", referencedColumnName="id", nullable=false)
+     */
+    private $lekarz;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date")
+     */
+    private $date;
 
     /**
      * Get id
@@ -44,22 +57,6 @@ class Diagnoza
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWizyta()
-    {
-        return $this->wizyta;
-    }
-
-    /**
-     * @param mixed $wizyta
-     */
-    public function setWizyta($wizyta)
-    {
-        $this->wizyta = $wizyta;
     }
 
     /**
@@ -76,6 +73,54 @@ class Diagnoza
     public function setChoroba($choroba)
     {
         $this->choroba = $choroba;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPacjent()
+    {
+        return $this->pacjent;
+    }
+
+    /**
+     * @param mixed $pacjent
+     */
+    public function setPacjent($pacjent)
+    {
+        $this->pacjent = $pacjent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLekarz()
+    {
+        return $this->lekarz;
+    }
+
+    /**
+     * @param mixed $lekarz
+     */
+    public function setLekarz($lekarz)
+    {
+        $this->lekarz = $lekarz;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param \DateTime $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
     }
 }
 
