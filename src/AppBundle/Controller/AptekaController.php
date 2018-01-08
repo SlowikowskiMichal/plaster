@@ -121,9 +121,55 @@ class AptekaController extends Controller
     /**
      * @Route("/apteka/recepty", name="aptekaRecepty")
      */
-    public function showRecepty()
+    public function showRecepty(Request $request)
     {
+        $receptaList = null;
+
+        $form = $this->createFormBuilder(null)
+            ->add(  'name',TextType::class, [
+                'label' => "Nazwa Leku",
+                'required' => false
+            ])
+            ->add(  'wyszukaj',SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $name = $form->getData()['name'];
+            $id = $this->getUser()->getId();
+            $name = $this->getAllRecordsIfFieldIsNull($name);
+
+            $receptaList = $this
+                ->getDoctrine()
+                ->getManager()
+                ->createQuery(
+                    'SELECT  l.name, m.ilosc, m.cena
+                    FROM AppBundle:StanMagazynu m
+                      INNER JOIN m.lek l
+                      INNER JOIN AppBundle:Apteka ap WITH ap.user = :id
+                    WHERE l.name LIKE :name
+                    AND m.apteka = ap.id
+                    ORDER BY l.name ASC')
+                ->setParameter('name', $name)
+                ->setParameter('id', $id)
+                ->getResult();
+
+            $wyniki = array_filter($receptaList);
+
+            if(empty($wyniki)) {
+                $this->addFlash("error", "Nie znaleziono leku spełniającego wymagania");
+            }
+
+            return $this->render('logged/aptekarz/leki.html.twig', array(
+                'search_form' => $form->createView(),
+                'lekiList' => $receptaList,
+                'active' => "leki",
+            ));
+        }
         return $this->render('logged/aptekarz/recepty.html.twig', array(
+            'search_form' => $form->createView(),
+            'receptaList' => $receptaList,
             'active' => "recepty",
         ));
     }

@@ -22,8 +22,40 @@ class PacjentController extends Controller
      */
     public function showHome()
     {
+        $id = $this->getUser()->getId();
+        $nextWeek = new \DateTime('now +1 week');
+        $pacjent = $this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery(
+                'SELECT  p.imie, p.nazwisko
+                FROM AppBundle:Pacjent p
+                WHERE p.user = :id')
+            ->setParameter('id', $id)
+            ->getResult();
+
+        $wizytyList = $this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery(
+                'SELECT l.imie, l.nazwisko, l.telephone, s.name as specjalizacja, w.date, w.time
+                    FROM AppBundle:Wizyta w
+                    JOIN AppBundle:Pacjent p WITH p.id = w.pacjent
+                    JOIN AppBundle:Lekarz l WITH l.id = w.lekarz
+                    JOIN AppBundle:Specjalizacja s WITH l.specjalizacja = s.id
+                    WHERE p.user = :id
+                    AND :now < w.date
+                    AND w.date < :nextWeek
+                    ORDER BY w.date, w.time ASC')
+            ->setParameter('id', $id)
+            ->setParameter('now', new \DateTime())
+            ->setParameter('nextWeek', $nextWeek)
+            ->getResult();
+
         return $this->render('logged/pacjent/home.html.twig', array(
             'active' => "home",
+            'pacjent' => $pacjent,
+            'wizytyList' => $wizytyList
         ));
     }
 
@@ -118,8 +150,25 @@ class PacjentController extends Controller
      */
     public function showHistory()
     {
+        $id = $this->getUser()->getId();
+
+        $historiaList = $this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery(
+                'SELECT  l.imie, l.nazwisko, l.telephone, d.date, ch.nazwa
+                FROM AppBundle:Diagnoza d
+                INNER JOIN AppBundle:Pacjent p WITH p.id = d.pacjent
+                INNER JOIN AppBundle:Lekarz l WITH l.id = d.lekarz
+                INNER JOIN AppBundle:Choroba ch WITH ch.id = d.choroba
+                WHERE p.user = :id
+                ORDER BY d.date DESC')
+            ->setParameter('id', $id)
+            ->getResult();
+
         return $this->render('logged/pacjent/historia.html.twig', array(
             'active' => "historia",
+            'historiaList' => $historiaList
         ));
     }
 
@@ -140,6 +189,7 @@ class PacjentController extends Controller
             ->add('specjalizacja', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Specjalizacja',
                 'choice_label' => 'name',
+                'label' => "Specjalizacja ",
                 'multiple' => false,
                 'expanded' => false,
                 'required' => false,
@@ -306,8 +356,25 @@ class PacjentController extends Controller
      */
     public function showRecepty()
     {
+        $id = $this->getUser()->getId();
+
+        $receptaList = $this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery(
+                'SELECT  l.name, r.date
+                FROM AppBundle:Recepta r
+                INNER JOIN AppBundle:Pacjent p WITH p.id = r.pacjent
+                INNER JOIN AppBundle:Lek l WITH l.id = r.lek
+                WHERE p.user = :id
+                AND r.zrealizowana = :zrealizowana')
+            ->setParameter('id', $id)
+            ->setParameter('zrealizowana', false)
+            ->getResult();
+
         return $this->render('logged/pacjent/recepty.html.twig', array(
             'active' => "recepty",
+            'receptaList' => $receptaList,
         ));
     }
 
@@ -316,8 +383,24 @@ class PacjentController extends Controller
      */
     public function showWizyty()
     {
+        $id = $this->getUser()->getId();
+
+        $wizytyList = $this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery(
+                'SELECT l.imie, l.nazwisko, l.telephone, s.name as specjalizacja, w.date, w.time
+                    FROM AppBundle:Wizyta w
+                    JOIN AppBundle:Pacjent p WITH p.id = w.pacjent
+                    JOIN AppBundle:Lekarz l WITH l.id = w.lekarz
+                    JOIN AppBundle:Specjalizacja s WITH l.specjalizacja = s.id
+                    WHERE p.user = :id
+                    ORDER BY w.date, w.time ASC')
+            ->setParameter('id', $id)
+            ->getResult();
         return $this->render('logged/pacjent/wizyty.html.twig', array(
             'active' => "wizyty",
+            'wizytyList' => $wizytyList,
         ));
     }
 

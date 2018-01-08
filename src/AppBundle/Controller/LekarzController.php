@@ -9,11 +9,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\Diagnoza;
 use AppBundle\Entity\Lekarz;
 use AppBundle\Entity\Pacjent;
+use AppBundle\Entity\Recepta;
 use AppBundle\Entity\Wizyta;
 use AppBundle\Form\WizytaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,8 +29,19 @@ class LekarzController extends Controller
      */
     public function showHome()
     {
+        $id = $this->getUser()->getId();
+        $lekarz = $this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery(
+                'SELECT  l.imie, l.nazwisko
+                FROM AppBundle:Lekarz l
+                WHERE l.user = :id')
+            ->setParameter('id', $id)
+            ->getResult();
         return $this->render('logged/lekarz/home.html.twig', array(
             'active' => "home",
+            'lekarz' => $lekarz,
         ));
     }
 
@@ -208,8 +222,23 @@ class LekarzController extends Controller
      */
     public function showWizyty()
     {
+        $id = $this->getUser()->getId();
+
+        $wizytyList = $this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery(
+                'SELECT p.imie, p.nazwisko, p.telephone, w.date, w.time
+                    FROM AppBundle:Wizyta w
+                    JOIN AppBundle:Pacjent p WITH p.id = w.pacjent
+                    JOIN AppBundle:Lekarz l WITH l.id = w.lekarz
+                    WHERE l.user = :id
+                    ORDER BY w.date, w.time ASC')
+            ->setParameter('id', $id)
+            ->getResult();
         return $this->render('logged/lekarz/wizyty.html.twig', array(
             'active' => "wizyty",
+            'wizytyList' => $wizytyList,
         ));
     }
 
@@ -242,12 +271,129 @@ class LekarzController extends Controller
             $em->persist($wizyta);
             $em->flush();
 
-            $this->addFlash('success',"Udało zarejestrować się Adres Apteki");
+            $this->addFlash('success',"Wizyta dodana pomyślnie");
 //            return $this->redirectToRoute('login');
         }
         return $this->render('logged/lekarz/register.html.twig', [
             'registration_form' => $form->createView(),
             'active' => "dodajWizyty",
+        ]);
+    }
+
+    /**
+     * @Route("/lekarz/recepta/dodaj", name="lekarzDodajRecepte")
+     */
+    public function addRecepta(Request $request){
+
+        $recepta = new Recepta();
+
+        $form = $this->createFormBuilder(null)
+            ->add(  'pacjent',EntityType::class, [
+                'class' => 'AppBundle\Entity\Pacjent',
+                'choice_label' => 'pacjent',
+                'label' => 'Pacjent ',
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+            ])
+            ->add( 'lek',EntityType::class, [
+                'class' => 'AppBundle\Entity\Lek',
+                'choice_label' => 'name',
+                'label' => 'Lek ',
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+            ])
+            ->add(  'Wypisz',SubmitType::class)
+            ->getForm();
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $lekarz = $this
+                ->getDoctrine()
+                ->getRepository(Lekarz::class)
+                ->findOneBy(
+                    ['user'=>$this->getUser()]
+                );
+            $lek = $form->getData()['lek'];
+            $pacjent = $form->getData()['pacjent'];
+
+            $recepta->setLekarz($lekarz);
+            $recepta->setDate(new  \DateTime());
+            $recepta->setZrealizowana(false);
+            $recepta->setPacjent($pacjent);
+            $recepta->setLek($lek);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($recepta);
+            $em->flush();
+
+            $this->addFlash('success',"Recepta wypisana pomyślnie");
+//            return $this->redirectToRoute('login');
+        }
+        return $this->render('logged/lekarz/register.html.twig', [
+            'registration_form' => $form->createView(),
+            'active' => "dodajRecepte",
+        ]);
+    }
+
+    /**
+     * @Route("/lekarz/diagnoza/dodaj", name="lekarzDodajDiagnoza")
+     */
+    public function addDiagnoza(Request $request){
+
+        $diagnoza = new Diagnoza();
+
+        $form = $this->createFormBuilder(null)
+            ->add(  'pacjent',EntityType::class, [
+                'class' => 'AppBundle\Entity\Pacjent',
+                'choice_label' => 'pacjent',
+                'label' => 'Pacjent ',
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+            ])
+            ->add( 'choroba',EntityType::class, [
+                'class' => 'AppBundle\Entity\Choroba',
+                'choice_label' => 'nazwa',
+                'label' => 'Choroba ',
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+            ])
+            ->add(  'Wypisz',SubmitType::class)
+            ->getForm();
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $lekarz = $this
+                ->getDoctrine()
+                ->getRepository(Lekarz::class)
+                ->findOneBy(
+                    ['user'=>$this->getUser()]
+                );
+            $choroba = $form->getData()['choroba'];
+            $pacjent = $form->getData()['pacjent'];
+
+            $diagnoza->setLekarz($lekarz);
+            $diagnoza->setDate(new  \DateTime());
+
+            $diagnoza->setPacjent($pacjent);
+            $diagnoza->setChoroba($choroba);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($diagnoza);
+            $em->flush();
+
+            $this->addFlash('success',"Diagnoza dodana pomyślnie");
+        }
+        return $this->render('logged/lekarz/register.html.twig', [
+            'registration_form' => $form->createView(),
+            'active' => "dodajDiagnoza",
         ]);
     }
 }
